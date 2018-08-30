@@ -1,0 +1,4 @@
+% obsoleto, usard dotgen
+
+color = owner./3;
+%scatter(X(:,1),X(:,2),[],color)

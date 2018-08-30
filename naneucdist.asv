@@ -1,0 +1,16 @@
+function d = naneucdist(XI, XJ) % euclidean distance, ignoring NaNs
+[m,p] = size(XJ);
+sqdx = (repmat(XI,m,1) - XJ) .^ 2;
+pstar = sum(~isnan(sqdx),2); % correction for missing coords
+pstar(pstar == 0) = NaN;
+d = sqrt(nansum(sqdx,2) .* p ./ pstar);
+
+
+
+additionalArg = 1 ./ var(X)';
+         wgts = additionalArg;
+            dsq = zeros(n-i,1,outClass);
+            for q = 1:p
+                dsq = dsq + wgts(q) .* (X(i,q) - X((i+1):n,q)).^2;
+            end
+            Y(k:(k+n-i-1)) = sqrt(dsq);

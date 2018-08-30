@@ -1,0 +1,19 @@
+ind=1;
+tab_owndeg = zeros(14,4);
+tab_stddev = zeros(14,4);
+iter = zeros(100,4);
+ind_x=1;
+for i=0:8
+    parfor l=1:100
+        [graph, label] = graphgen2([32 32 32 32],2,16);
+        [graph, label] = addoverlapnode(graph,label,[16-i i 0 0]);
+        [owner, pot] = ftrwalk5(graph, 4, 50, 0.6, 0.4, 0.9);
+        [accuracy, owner, owndeg] = tmwevaloverlap(label,owner,owndeg);
+        iter(l,:) = owndeg(129,:);
+    end
+    tab_owndeg(ind_x,:)=mean(iter);
+    tab_stddev(ind_x,:)=std(iter);
+    disp(sprintf('i: %0.4f  DeltaV: %0.4f',i,tab_owndeg(ind_x,:))
+    save tabs tab_owndeg tab_stdacc
+    ind_x = ind_x + 1;
+end

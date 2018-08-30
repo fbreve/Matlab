@@ -1,0 +1,1551 @@
+graph Walk {
+start=0
+1 [fillcolor=gray][style=filled][pos="1,18"][pin=true]
+1 -- 3
+1 -- 4
+1 -- 5
+1 -- 17
+1 -- 20
+1 -- 51
+1 -- 66
+1 -- 67
+2 [fillcolor=gray][style=filled][pos="1,17"][pin=true]
+2 -- 5
+2 -- 18
+2 -- 21
+2 -- 22
+2 -- 36
+2 -- 37
+2 -- 50
+2 -- 52
+2 -- 65
+3 [fillcolor=gray][style=filled][pos="1,16"][pin=true]
+3 -- 4
+3 -- 6
+3 -- 17
+3 -- 19
+3 -- 20
+3 -- 23
+3 -- 34
+3 -- 35
+4 [fillcolor=blue][style=filled][fontcolor=white][pos="1,15"][pin=true]
+4 -- 5
+4 -- 8
+4 -- 17
+4 -- 19
+4 -- 20
+4 -- 23
+4 -- 24
+4 -- 34
+4 -- 35
+5 [fillcolor=blue][style=filled][fontcolor=white][pos="1,14"][pin=true]
+5 -- 8
+5 -- 17
+5 -- 18
+5 -- 22
+5 -- 23
+5 -- 24
+5 -- 25
+5 -- 36
+5 -- 51
+5 -- 52
+6 [fillcolor=blue][style=filled][fontcolor=white][pos="1,13"][pin=true]
+6 -- 7
+6 -- 19
+6 -- 20
+6 -- 23
+6 -- 33
+6 -- 34
+6 -- 35
+6 -- 38
+6 -- 49
+6 -- 60
+7 [fillcolor=blue][style=filled][fontcolor=white][pos="1,12"][pin=true]
+7 -- 19
+7 -- 20
+7 -- 23
+7 -- 33
+7 -- 34
+7 -- 35
+7 -- 38
+7 -- 45
+7 -- 49
+7 -- 60
+8 [fillcolor=blue][style=filled][fontcolor=white][pos="1,11"][pin=true]
+8 -- 11
+8 -- 23
+8 -- 24
+8 -- 25
+8 -- 26
+8 -- 43
+9 [fillcolor=blue][style=filled][fontcolor=white][pos="1,10"][pin=true]
+9 -- 10
+9 -- 12
+9 -- 21
+9 -- 22
+9 -- 26
+9 -- 27
+9 -- 28
+9 -- 37
+9 -- 44
+9 -- 61
+10 [fillcolor=blue][style=filled][fontcolor=white][pos="1,9"][pin=true]
+10 -- 12
+10 -- 21
+10 -- 22
+10 -- 26
+10 -- 27
+10 -- 28
+10 -- 37
+10 -- 44
+10 -- 61
+11 [fillcolor=blue][style=filled][fontcolor=white][pos="1,8"][pin=true]
+11 -- 14
+11 -- 15
+11 -- 24
+11 -- 25
+11 -- 26
+11 -- 28
+11 -- 43
+11 -- 44
+12 [fillcolor=blue][style=filled][fontcolor=white][pos="1,7"][pin=true]
+12 -- 21
+12 -- 27
+12 -- 28
+12 -- 61
+12 -- 77
+12 -- 79
+13 [fillcolor=blue][style=filled][fontcolor=white][pos="1,6"][pin=true]
+13 -- 14
+13 -- 15
+13 -- 29
+13 -- 30
+13 -- 32
+13 -- 43
+13 -- 46
+13 -- 62
+14 [fillcolor=gray][style=filled][pos="1,5"][pin=true]
+14 -- 15
+14 -- 29
+14 -- 30
+14 -- 32
+14 -- 43
+14 -- 46
+14 -- 47
+15 [fillcolor=gray][style=filled][pos="1,4"][pin=true]
+15 -- 29
+15 -- 31
+15 -- 32
+15 -- 46
+15 -- 47
+15 -- 63
+16 [fillcolor=gray][style=filled][pos="1,3"][pin=true]
+16 -- 30
+16 -- 45
+16 -- 48
+16 -- 60
+16 -- 62
+16 -- 64
+16 -- 80
+16 -- 94
+17 [fillcolor=gray][style=filled][pos="2,18"][pin=true]
+17 -- 18
+17 -- 36
+17 -- 51
+17 -- 66
+17 -- 67
+18 [fillcolor=gray][style=filled][pos="2,17"][pin=true]
+18 -- 22
+18 -- 36
+18 -- 37
+18 -- 50
+18 -- 51
+18 -- 52
+18 -- 65
+19 [fillcolor=blue][style=filled][fontcolor=white][pos="2,16"][pin=true]
+19 -- 20
+19 -- 33
+19 -- 34
+19 -- 35
+19 -- 81
+19 -- 130
+20 [fillcolor=blue][style=filled][fontcolor=white][pos="2,15"][pin=true]
+20 -- 23
+20 -- 33
+20 -- 34
+20 -- 35
+21 [fillcolor=gray][style=filled][pos="2,14"][pin=true]
+21 -- 22
+21 -- 27
+21 -- 37
+21 -- 53
+21 -- 68
+21 -- 99
+21 -- 146
+22 [fillcolor=gray][style=filled][pos="2,13"][pin=true]
+22 -- 36
+22 -- 37
+22 -- 52
+23 [fillcolor=gray][style=filled][pos="2,12"][pin=true]
+23 -- 24
+23 -- 25
+23 -- 43
+24 [fillcolor=gray][style=filled][pos="2,11"][pin=true]
+24 -- 25
+24 -- 26
+24 -- 43
+25 [fillcolor=gray][style=filled][pos="2,10"][pin=true]
+25 -- 26
+25 -- 43
+25 -- 44
+26 [fillcolor=gray][style=filled][pos="2,9"][pin=true]
+26 -- 27
+26 -- 28
+26 -- 44
+27 [fillcolor=gray][style=filled][pos="2,8"][pin=true]
+27 -- 28
+27 -- 31
+27 -- 61
+27 -- 77
+27 -- 79
+28 [fillcolor=gray][style=filled][pos="2,7"][pin=true]
+28 -- 31
+28 -- 44
+28 -- 61
+28 -- 63
+28 -- 77
+29 [fillcolor=blue][style=filled][fontcolor=white][pos="2,6"][pin=true]
+29 -- 30
+29 -- 32
+29 -- 43
+29 -- 45
+29 -- 46
+29 -- 47
+29 -- 48
+29 -- 62
+29 -- 78
+30 [fillcolor=blue][style=filled][fontcolor=white][pos="2,5"][pin=true]
+30 -- 43
+30 -- 45
+30 -- 46
+30 -- 48
+30 -- 62
+30 -- 64
+30 -- 78
+30 -- 80
+30 -- 94
+31 [fillcolor=gray][style=filled][pos="2,4"][pin=true]
+31 -- 44
+31 -- 47
+31 -- 61
+31 -- 63
+31 -- 77
+31 -- 79
+31 -- 96
+31 -- 112
+32 [fillcolor=gray][style=filled][pos="2,3"][pin=true]
+32 -- 46
+32 -- 47
+32 -- 63
+32 -- 78
+33 [fillcolor=gray][style=filled][pos="3,18"][pin=true]
+33 -- 34
+33 -- 35
+33 -- 38
+33 -- 49
+33 -- 81
+33 -- 130
+33 -- 163
+34 [fillcolor=blue][style=filled][fontcolor=white][pos="3,17"][pin=true]
+34 -- 35
+34 -- 81
+34 -- 98
+34 -- 130
+35 [fillcolor=blue][style=filled][fontcolor=white][pos="3,16"][pin=true]
+35 -- 81
+35 -- 130
+36 [fillcolor=gray][style=filled][pos="3,15"][pin=true]
+36 -- 37
+36 -- 50
+36 -- 51
+36 -- 52
+36 -- 65
+36 -- 82
+37 [fillcolor=gray][style=filled][pos="3,14"][pin=true]
+37 -- 50
+37 -- 52
+37 -- 53
+37 -- 65
+37 -- 68
+37 -- 114
+38 [fillcolor=gray][style=filled][pos="3,13"][pin=true]
+38 -- 41
+38 -- 49
+38 -- 60
+38 -- 81
+38 -- 130
+38 -- 163
+39 [fillcolor=gray][style=filled][pos="3,12"][pin=true]
+39 -- 40
+39 -- 42
+39 -- 53
+39 -- 68
+39 -- 77
+39 -- 99
+39 -- 126
+39 -- 131
+39 -- 142
+39 -- 147
+39 -- 180
+40 [fillcolor=gray][style=filled][pos="3,11"][pin=true]
+40 -- 53
+40 -- 68
+40 -- 99
+40 -- 115
+40 -- 126
+40 -- 131
+40 -- 142
+40 -- 217
+41 [fillcolor=gray][style=filled][pos="3,10"][pin=true]
+41 -- 42
+41 -- 49
+41 -- 59
+41 -- 60
+41 -- 126
+41 -- 131
+41 -- 216
+42 [fillcolor=gray][style=filled][pos="3,9"][pin=true]
+42 -- 53
+42 -- 77
+42 -- 99
+42 -- 110
+42 -- 126
+42 -- 142
+42 -- 147
+42 -- 158
+43 [fillcolor=gray][style=filled][pos="3,8"][pin=true]
+43 -- 44
+43 -- 46
+43 -- 78
+44 [fillcolor=gray][style=filled][pos="3,7"][pin=true]
+44 -- 47
+44 -- 63
+45 [fillcolor=gray][style=filled][pos="3,6"][pin=true]
+45 -- 48
+45 -- 60
+45 -- 62
+45 -- 64
+45 -- 80
+45 -- 94
+45 -- 95
+46 [fillcolor=blue][style=filled][fontcolor=white][pos="3,5"][pin=true]
+46 -- 47
+46 -- 48
+46 -- 62
+46 -- 63
+46 -- 64
+46 -- 78
+46 -- 95
+46 -- 111
+47 [fillcolor=blue][style=filled][fontcolor=white][pos="3,4"][pin=true]
+47 -- 63
+47 -- 78
+47 -- 96
+48 [fillcolor=gray][style=filled][pos="3,3"][pin=true]
+48 -- 62
+48 -- 64
+48 -- 78
+48 -- 80
+48 -- 94
+48 -- 95
+49 [fillcolor=blue][style=filled][fontcolor=white][pos="4,18"][pin=true]
+49 -- 60
+49 -- 81
+49 -- 130
+49 -- 163
+50 [fillcolor=blue][style=filled][fontcolor=white][pos="4,17"][pin=true]
+50 -- 51
+50 -- 52
+50 -- 65
+50 -- 82
+50 -- 114
+50 -- 145
+51 [fillcolor=gray][style=filled][pos="4,16"][pin=true]
+51 -- 52
+51 -- 65
+51 -- 66
+51 -- 67
+51 -- 82
+51 -- 83
+51 -- 97
+51 -- 98
+52 [fillcolor=gray][style=filled][pos="4,15"][pin=true]
+52 -- 65
+52 -- 82
+53 [fillcolor=gray][style=filled][pos="4,14"][pin=true]
+53 -- 68
+53 -- 99
+53 -- 147
+53 -- 180
+54 [fillcolor=gray][style=filled][pos="4,13"][pin=true]
+54 -- 55
+54 -- 58
+54 -- 69
+54 -- 70
+54 -- 73
+54 -- 86
+54 -- 117
+54 -- 119
+55 [fillcolor=gray][style=filled][pos="4,12"][pin=true]
+55 -- 58
+55 -- 69
+55 -- 70
+55 -- 73
+55 -- 90
+55 -- 106
+55 -- 117
+56 [fillcolor=gray][style=filled][pos="4,11"][pin=true]
+56 -- 57
+56 -- 71
+56 -- 72
+56 -- 74
+56 -- 75
+56 -- 86
+56 -- 88
+56 -- 103
+56 -- 105
+57 [fillcolor=gray][style=filled][pos="4,10"][pin=true]
+57 -- 70
+57 -- 72
+57 -- 74
+57 -- 75
+57 -- 86
+57 -- 88
+57 -- 90
+57 -- 92
+57 -- 105
+58 [fillcolor=gray][style=filled][pos="4,9"][pin=true]
+58 -- 73
+58 -- 90
+58 -- 104
+58 -- 106
+58 -- 119
+58 -- 123
+58 -- 125
+59 [fillcolor=gray][style=filled][pos="4,8"][pin=true]
+59 -- 60
+59 -- 104
+59 -- 124
+59 -- 125
+59 -- 139
+59 -- 154
+59 -- 181
+59 -- 184
+60 [fillcolor=gray][style=filled][pos="4,7"][pin=true]
+60 -- 64
+60 -- 94
+61 [fillcolor=gray][style=filled][pos="4,6"][pin=true]
+61 -- 77
+61 -- 79
+61 -- 110
+61 -- 128
+62 [fillcolor=gray][style=filled][pos="4,5"][pin=true]
+62 -- 64
+62 -- 78
+62 -- 80
+62 -- 94
+62 -- 95
+62 -- 111
+63 [fillcolor=blue][style=filled][fontcolor=white][pos="4,4"][pin=true]
+63 -- 96
+63 -- 111
+63 -- 112
+63 -- 127
+64 [fillcolor=blue][style=filled][fontcolor=white][pos="4,3"][pin=true]
+64 -- 80
+64 -- 94
+64 -- 95
+65 [fillcolor=blue][style=filled][fontcolor=white][pos="5,18"][pin=true]
+65 -- 82
+65 -- 97
+65 -- 113
+65 -- 114
+65 -- 145
+66 [fillcolor=gray][style=filled][pos="5,17"][pin=true]
+66 -- 67
+66 -- 82
+66 -- 83
+66 -- 97
+66 -- 98
+66 -- 113
+67 [fillcolor=gray][style=filled][pos="5,16"][pin=true]
+67 -- 82
+67 -- 83
+67 -- 97
+67 -- 98
+67 -- 113
+68 [fillcolor=gray][style=filled][pos="5,15"][pin=true]
+68 -- 99
+68 -- 114
+68 -- 145
+68 -- 146
+68 -- 196
+69 [fillcolor=gray][style=filled][pos="5,14"][pin=true]
+69 -- 70
+69 -- 73
+69 -- 86
+69 -- 117
+69 -- 119
+69 -- 134
+69 -- 149
+70 [fillcolor=gray][style=filled][pos="5,13"][pin=true]
+70 -- 86
+70 -- 88
+70 -- 100
+70 -- 103
+70 -- 117
+71 [fillcolor=yellow][style=filled][pos="5,12"][pin=true]
+71 -- 72
+71 -- 85
+71 -- 87
+71 -- 88
+71 -- 89
+71 -- 101
+71 -- 102
+71 -- 103
+72 [fillcolor=yellow][style=filled][pos="5,11"][pin=true]
+72 -- 74
+72 -- 86
+72 -- 88
+72 -- 103
+72 -- 105
+73 [fillcolor=yellow][style=filled][pos="5,10"][pin=true]
+73 -- 104
+73 -- 106
+73 -- 119
+73 -- 123
+73 -- 125
+73 -- 137
+73 -- 139
+74 [fillcolor=yellow][style=filled][pos="5,9"][pin=true]
+74 -- 75
+74 -- 88
+74 -- 90
+74 -- 92
+74 -- 105
+74 -- 107
+74 -- 108
+74 -- 122
+75 [fillcolor=gray][style=filled][pos="5,8"][pin=true]
+75 -- 88
+75 -- 90
+75 -- 92
+75 -- 105
+75 -- 107
+75 -- 108
+76 [fillcolor=gray][style=filled][pos="5,7"][pin=true]
+76 -- 87
+76 -- 89
+76 -- 91
+76 -- 93
+76 -- 108
+76 -- 109
+76 -- 120
+76 -- 138
+76 -- 141
+77 [fillcolor=gray][style=filled][pos="5,6"][pin=true]
+77 -- 79
+77 -- 110
+77 -- 127
+77 -- 158
+78 [fillcolor=gray][style=filled][pos="5,5"][pin=true]
+78 -- 80
+78 -- 94
+78 -- 95
+78 -- 111
+79 [fillcolor=gray][style=filled][pos="5,4"][pin=true]
+79 -- 96
+79 -- 110
+79 -- 112
+79 -- 127
+79 -- 128
+79 -- 143
+79 -- 144
+80 [fillcolor=blue][style=filled][fontcolor=white][pos="5,3"][pin=true]
+80 -- 94
+80 -- 95
+81 [fillcolor=blue][style=filled][fontcolor=white][pos="6,18"][pin=true]
+81 -- 130
+81 -- 163
+82 [fillcolor=gray][style=filled][pos="6,17"][pin=true]
+82 -- 83
+82 -- 97
+82 -- 98
+82 -- 113
+83 [fillcolor=gray][style=filled][pos="6,16"][pin=true]
+83 -- 97
+83 -- 98
+83 -- 113
+83 -- 129
+84 [fillcolor=gray][style=filled][pos="6,15"][pin=true]
+84 -- 87
+84 -- 89
+84 -- 93
+84 -- 116
+84 -- 133
+84 -- 164
+84 -- 165
+84 -- 166
+84 -- 182
+84 -- 198
+85 [fillcolor=gray][style=filled][pos="6,14"][pin=true]
+85 -- 87
+85 -- 100
+85 -- 101
+85 -- 102
+85 -- 118
+85 -- 133
+85 -- 135
+86 [fillcolor=yellow][style=filled][pos="6,13"][pin=true]
+86 -- 88
+86 -- 100
+86 -- 101
+86 -- 103
+86 -- 105
+86 -- 132
+87 [fillcolor=gray][style=filled][pos="6,12"][pin=true]
+87 -- 89
+87 -- 91
+87 -- 102
+87 -- 118
+87 -- 120
+87 -- 133
+87 -- 135
+88 [fillcolor=gray][style=filled][pos="6,11"][pin=true]
+88 -- 90
+88 -- 100
+88 -- 101
+88 -- 103
+88 -- 105
+88 -- 136
+89 [fillcolor=gray][style=filled][pos="6,10"][pin=true]
+89 -- 91
+89 -- 93
+89 -- 102
+89 -- 109
+89 -- 118
+89 -- 120
+90 [fillcolor=gray][style=filled][pos="6,9"][pin=true]
+90 -- 92
+90 -- 105
+90 -- 106
+90 -- 107
+90 -- 123
+90 -- 140
+91 [fillcolor=yellow][style=filled][pos="6,8"][pin=true]
+91 -- 93
+91 -- 109
+91 -- 120
+91 -- 141
+91 -- 169
+92 [fillcolor=gray][style=filled][pos="6,7"][pin=true]
+92 -- 105
+92 -- 107
+92 -- 108
+92 -- 122
+93 [fillcolor=gray][style=filled][pos="6,6"][pin=true]
+93 -- 109
+93 -- 166
+93 -- 169
+93 -- 182
+94 [fillcolor=gray][style=filled][pos="6,5"][pin=true]
+94 -- 95
+95 [fillcolor=gray][style=filled][pos="6,4"][pin=true]
+95 -- 111
+96 [fillcolor=blue][style=filled][fontcolor=white][pos="6,3"][pin=true]
+96 -- 111
+96 -- 112
+96 -- 127
+96 -- 143
+97 [fillcolor=blue][style=filled][fontcolor=white][pos="7,18"][pin=true]
+97 -- 98
+97 -- 113
+97 -- 114
+97 -- 129
+97 -- 145
+97 -- 161
+98 [fillcolor=gray][style=filled][pos="7,17"][pin=true]
+98 -- 113
+98 -- 129
+99 [fillcolor=gray][style=filled][pos="7,16"][pin=true]
+99 -- 115
+99 -- 142
+99 -- 146
+99 -- 147
+99 -- 180
+99 -- 215
+99 -- 217
+100 [fillcolor=gray][style=filled][pos="7,15"][pin=true]
+100 -- 101
+100 -- 103
+100 -- 132
+100 -- 150
+101 [fillcolor=yellow][style=filled][pos="7,14"][pin=true]
+101 -- 103
+101 -- 132
+101 -- 150
+102 [fillcolor=gray][style=filled][pos="7,13"][pin=true]
+102 -- 116
+102 -- 118
+102 -- 120
+102 -- 133
+102 -- 135
+102 -- 151
+103 [fillcolor=gray][style=filled][pos="7,12"][pin=true]
+103 -- 105
+103 -- 121
+103 -- 132
+103 -- 136
+104 [fillcolor=gray][style=filled][pos="7,11"][pin=true]
+104 -- 106
+104 -- 119
+104 -- 124
+104 -- 125
+104 -- 139
+104 -- 149
+104 -- 154
+104 -- 181
+104 -- 184
+105 [fillcolor=gray][style=filled][pos="7,10"][pin=true]
+105 -- 107
+105 -- 121
+105 -- 122
+105 -- 136
+106 [fillcolor=gray][style=filled][pos="7,9"][pin=true]
+106 -- 119
+106 -- 123
+106 -- 125
+106 -- 134
+106 -- 137
+106 -- 139
+106 -- 140
+106 -- 173
+107 [fillcolor=gray][style=filled][pos="7,8"][pin=true]
+107 -- 108
+107 -- 122
+107 -- 123
+107 -- 140
+107 -- 155
+107 -- 157
+108 [fillcolor=yellow][style=filled][pos="7,7"][pin=true]
+108 -- 109
+108 -- 121
+108 -- 122
+108 -- 138
+108 -- 141
+108 -- 156
+109 [fillcolor=gray][style=filled][pos="7,6"][pin=true]
+109 -- 120
+109 -- 138
+109 -- 141
+109 -- 156
+110 [fillcolor=gray][style=filled][pos="7,5"][pin=true]
+110 -- 126
+110 -- 127
+110 -- 128
+110 -- 144
+110 -- 158
+110 -- 189
+110 -- 218
+111 [fillcolor=gray][style=filled][pos="7,4"][pin=true]
+111 -- 159
+111 -- 160
+111 -- 174
+111 -- 175
+112 [fillcolor=blue][style=filled][fontcolor=white][pos="7,3"][pin=true]
+112 -- 127
+112 -- 143
+112 -- 176
+112 -- 192
+113 [fillcolor=blue][style=filled][fontcolor=white][pos="8,18"][pin=true]
+113 -- 129
+113 -- 161
+113 -- 162
+114 [fillcolor=gray][style=filled][pos="8,17"][pin=true]
+114 -- 145
+114 -- 146
+114 -- 161
+114 -- 177
+114 -- 196
+115 [fillcolor=gray][style=filled][pos="8,16"][pin=true]
+115 -- 131
+115 -- 142
+115 -- 146
+115 -- 147
+115 -- 216
+115 -- 217
+116 [fillcolor=gray][style=filled][pos="8,15"][pin=true]
+116 -- 118
+116 -- 133
+116 -- 151
+116 -- 164
+116 -- 165
+116 -- 166
+116 -- 182
+116 -- 198
+117 [fillcolor=yellow][style=filled][pos="8,14"][pin=true]
+117 -- 119
+117 -- 132
+117 -- 134
+117 -- 137
+117 -- 148
+117 -- 149
+118 [fillcolor=gray][style=filled][pos="8,13"][pin=true]
+118 -- 120
+118 -- 133
+118 -- 135
+118 -- 151
+118 -- 165
+119 [fillcolor=gray][style=filled][pos="8,12"][pin=true]
+119 -- 134
+119 -- 137
+119 -- 148
+119 -- 149
+119 -- 154
+119 -- 181
+120 [fillcolor=gray][style=filled][pos="8,11"][pin=true]
+120 -- 121
+120 -- 133
+120 -- 135
+120 -- 151
+120 -- 169
+121 [fillcolor=gray][style=filled][pos="8,10"][pin=true]
+121 -- 122
+121 -- 135
+121 -- 136
+121 -- 138
+121 -- 156
+122 [fillcolor=gray][style=filled][pos="8,9"][pin=true]
+122 -- 136
+122 -- 138
+122 -- 141
+122 -- 153
+122 -- 157
+123 [fillcolor=gray][style=filled][pos="8,8"][pin=true]
+123 -- 125
+123 -- 137
+123 -- 140
+123 -- 155
+123 -- 157
+123 -- 173
+123 -- 188
+124 [fillcolor=yellow][style=filled][pos="8,7"][pin=true]
+124 -- 125
+124 -- 139
+124 -- 154
+124 -- 173
+124 -- 181
+124 -- 184
+125 [fillcolor=gray][style=filled][pos="8,6"][pin=true]
+125 -- 139
+125 -- 154
+125 -- 173
+125 -- 184
+125 -- 188
+126 [fillcolor=gray][style=filled][pos="8,5"][pin=true]
+126 -- 131
+126 -- 142
+126 -- 215
+126 -- 216
+126 -- 217
+126 -- 218
+127 [fillcolor=gray][style=filled][pos="8,4"][pin=true]
+127 -- 128
+127 -- 143
+127 -- 144
+127 -- 158
+127 -- 176
+127 -- 192
+128 [fillcolor=blue][style=filled][fontcolor=white][pos="8,3"][pin=true]
+128 -- 143
+128 -- 144
+128 -- 191
+128 -- 208
+129 [fillcolor=blue][style=filled][fontcolor=white][pos="9,18"][pin=true]
+129 -- 162
+129 -- 178
+129 -- 179
+129 -- 193
+129 -- 194
+130 [fillcolor=gray][style=filled][pos="9,17"][pin=true]
+130 -- 163
+130 -- 179
+130 -- 180
+130 -- 197
+130 -- 226
+131 [fillcolor=gray][style=filled][pos="9,16"][pin=true]
+131 -- 147
+131 -- 216
+131 -- 217
+132 [fillcolor=gray][style=filled][pos="9,15"][pin=true]
+132 -- 148
+132 -- 149
+132 -- 150
+132 -- 167
+133 [fillcolor=yellow][style=filled][pos="9,14"][pin=true]
+133 -- 135
+133 -- 151
+133 -- 164
+133 -- 165
+133 -- 166
+133 -- 169
+133 -- 182
+133 -- 198
+134 [fillcolor=gray][style=filled][pos="9,13"][pin=true]
+134 -- 137
+134 -- 148
+134 -- 149
+134 -- 152
+134 -- 181
+135 [fillcolor=gray][style=filled][pos="9,12"][pin=true]
+135 -- 136
+135 -- 138
+135 -- 150
+135 -- 151
+136 [fillcolor=gray][style=filled][pos="9,11"][pin=true]
+136 -- 150
+136 -- 152
+136 -- 153
+136 -- 167
+136 -- 168
+136 -- 183
+137 [fillcolor=gray][style=filled][pos="9,10"][pin=true]
+137 -- 140
+137 -- 148
+137 -- 149
+137 -- 152
+137 -- 155
+137 -- 185
+137 -- 188
+137 -- 203
+138 [fillcolor=gray][style=filled][pos="9,9"][pin=true]
+138 -- 141
+138 -- 156
+138 -- 170
+138 -- 171
+138 -- 172
+139 [fillcolor=gray][style=filled][pos="9,8"][pin=true]
+139 -- 154
+139 -- 173
+139 -- 181
+139 -- 184
+139 -- 188
+140 [fillcolor=yellow][style=filled][pos="9,7"][pin=true]
+140 -- 153
+140 -- 155
+140 -- 157
+140 -- 173
+140 -- 188
+140 -- 203
+141 [fillcolor=gray][style=filled][pos="9,6"][pin=true]
+141 -- 156
+141 -- 170
+141 -- 171
+141 -- 172
+142 [fillcolor=gray][style=filled][pos="9,5"][pin=true]
+142 -- 215
+142 -- 216
+142 -- 217
+143 [fillcolor=gray][style=filled][pos="9,4"][pin=true]
+143 -- 144
+143 -- 158
+143 -- 176
+143 -- 191
+143 -- 192
+143 -- 208
+143 -- 221
+144 [fillcolor=blue][style=filled][fontcolor=white][pos="9,3"][pin=true]
+144 -- 158
+144 -- 189
+144 -- 191
+144 -- 208
+145 [fillcolor=blue][style=filled][fontcolor=white][pos="10,18"][pin=true]
+145 -- 146
+145 -- 161
+145 -- 177
+145 -- 196
+145 -- 211
+146 [fillcolor=gray][style=filled][pos="10,17"][pin=true]
+146 -- 147
+146 -- 196
+146 -- 211
+146 -- 217
+147 [fillcolor=gray][style=filled][pos="10,16"][pin=true]
+147 -- 180
+147 -- 196
+147 -- 197
+147 -- 215
+147 -- 216
+147 -- 218
+148 [fillcolor=gray][style=filled][pos="10,15"][pin=true]
+148 -- 149
+148 -- 152
+148 -- 167
+148 -- 181
+149 [fillcolor=yellow][style=filled][pos="10,14"][pin=true]
+149 -- 181
+149 -- 185
+150 [fillcolor=gray][style=filled][pos="10,13"][pin=true]
+150 -- 152
+150 -- 167
+150 -- 168
+150 -- 183
+150 -- 199
+151 [fillcolor=gray][style=filled][pos="10,12"][pin=true]
+151 -- 164
+151 -- 165
+151 -- 166
+151 -- 169
+151 -- 182
+151 -- 200
+152 [fillcolor=gray][style=filled][pos="10,11"][pin=true]
+152 -- 153
+152 -- 155
+152 -- 167
+152 -- 168
+152 -- 183
+152 -- 185
+152 -- 199
+153 [fillcolor=gray][style=filled][pos="10,10"][pin=true]
+153 -- 155
+153 -- 157
+153 -- 167
+153 -- 168
+153 -- 170
+153 -- 183
+153 -- 185
+153 -- 186
+153 -- 187
+153 -- 199
+154 [fillcolor=gray][style=filled][pos="10,9"][pin=true]
+154 -- 173
+154 -- 181
+154 -- 184
+154 -- 188
+155 [fillcolor=gray][style=filled][pos="10,8"][pin=true]
+155 -- 157
+155 -- 185
+155 -- 187
+155 -- 188
+156 [fillcolor=yellow][style=filled][pos="10,7"][pin=true]
+156 -- 170
+156 -- 171
+156 -- 172
+156 -- 202
+157 [fillcolor=gray][style=filled][pos="10,6"][pin=true]
+157 -- 172
+157 -- 187
+158 [fillcolor=gray][style=filled][pos="10,5"][pin=true]
+158 -- 189
+158 -- 191
+158 -- 208
+158 -- 215
+158 -- 218
+159 [fillcolor=gray][style=filled][pos="10,4"][pin=true]
+159 -- 160
+159 -- 174
+159 -- 175
+159 -- 176
+159 -- 190
+159 -- 205
+159 -- 207
+160 [fillcolor=blue][style=filled][fontcolor=white][pos="10,3"][pin=true]
+160 -- 174
+160 -- 175
+160 -- 176
+160 -- 190
+160 -- 207
+160 -- 224
+161 [fillcolor=blue][style=filled][fontcolor=white][pos="11,18"][pin=true]
+161 -- 177
+161 -- 196
+161 -- 209
+161 -- 211
+161 -- 225
+162 [fillcolor=gray][style=filled][pos="11,17"][pin=true]
+162 -- 178
+162 -- 193
+162 -- 194
+162 -- 195
+162 -- 210
+162 -- 212
+163 [fillcolor=gray][style=filled][pos="11,16"][pin=true]
+163 -- 179
+163 -- 197
+163 -- 226
+164 [fillcolor=gray][style=filled][pos="11,15"][pin=true]
+164 -- 165
+164 -- 166
+164 -- 169
+164 -- 182
+164 -- 198
+165 [fillcolor=gray][style=filled][pos="11,14"][pin=true]
+165 -- 166
+165 -- 169
+165 -- 182
+165 -- 198
+165 -- 200
+166 [fillcolor=yellow][style=filled][pos="11,13"][pin=true]
+166 -- 169
+166 -- 182
+166 -- 198
+167 [fillcolor=gray][style=filled][pos="11,12"][pin=true]
+167 -- 168
+167 -- 183
+167 -- 185
+167 -- 199
+167 -- 201
+168 [fillcolor=gray][style=filled][pos="11,11"][pin=true]
+168 -- 170
+168 -- 183
+168 -- 185
+168 -- 186
+168 -- 187
+168 -- 199
+168 -- 201
+169 [fillcolor=gray][style=filled][pos="11,10"][pin=true]
+169 -- 171
+169 -- 182
+169 -- 198
+169 -- 200
+169 -- 203
+170 [fillcolor=gray][style=filled][pos="11,9"][pin=true]
+170 -- 171
+170 -- 172
+170 -- 186
+170 -- 187
+170 -- 200
+170 -- 201
+170 -- 202
+171 [fillcolor=yellow][style=filled][pos="11,8"][pin=true]
+171 -- 172
+171 -- 186
+171 -- 187
+171 -- 200
+171 -- 202
+172 [fillcolor=gray][style=filled][pos="11,7"][pin=true]
+172 -- 186
+172 -- 187
+172 -- 202
+173 [fillcolor=gray][style=filled][pos="11,6"][pin=true]
+173 -- 184
+173 -- 188
+173 -- 203
+174 [fillcolor=gray][style=filled][pos="11,5"][pin=true]
+174 -- 175
+174 -- 190
+174 -- 205
+174 -- 207
+174 -- 223
+175 [fillcolor=gray][style=filled][pos="11,4"][pin=true]
+175 -- 190
+175 -- 204
+175 -- 205
+175 -- 206
+175 -- 223
+176 [fillcolor=blue][style=filled][fontcolor=white][pos="11,3"][pin=true]
+176 -- 192
+176 -- 207
+176 -- 224
+177 [fillcolor=blue][style=filled][fontcolor=white][pos="12,18"][pin=true]
+177 -- 178
+177 -- 196
+177 -- 209
+177 -- 211
+177 -- 225
+177 -- 242
+177 -- 243
+178 [fillcolor=gray][style=filled][pos="12,17"][pin=true]
+178 -- 193
+178 -- 194
+178 -- 195
+178 -- 209
+178 -- 210
+178 -- 212
+178 -- 227
+179 [fillcolor=gray][style=filled][pos="12,16"][pin=true]
+179 -- 194
+179 -- 195
+179 -- 210
+179 -- 226
+179 -- 228
+179 -- 241
+180 [fillcolor=gray][style=filled][pos="12,15"][pin=true]
+180 -- 197
+180 -- 215
+180 -- 216
+180 -- 218
+181 [fillcolor=gray][style=filled][pos="12,14"][pin=true]
+181 -- 184
+182 [fillcolor=gray][style=filled][pos="12,13"][pin=true]
+182 -- 198
+183 [fillcolor=yellow][style=filled][pos="12,12"][pin=true]
+183 -- 185
+183 -- 199
+183 -- 201
+184 [fillcolor=yellow][style=filled][pos="12,11"][pin=true]
+184 -- 188
+185 [fillcolor=yellow][style=filled][pos="12,10"][pin=true]
+185 -- 187
+185 -- 188
+185 -- 203
+186 [fillcolor=yellow][style=filled][pos="12,9"][pin=true]
+186 -- 187
+186 -- 199
+186 -- 200
+186 -- 201
+186 -- 202
+187 [fillcolor=gray][style=filled][pos="12,8"][pin=true]
+187 -- 201
+187 -- 202
+188 [fillcolor=gray][style=filled][pos="12,7"][pin=true]
+188 -- 203
+189 [fillcolor=gray][style=filled][pos="12,6"][pin=true]
+189 -- 191
+189 -- 192
+189 -- 208
+189 -- 215
+189 -- 218
+189 -- 221
+189 -- 238
+190 [fillcolor=gray][style=filled][pos="12,5"][pin=true]
+190 -- 205
+190 -- 207
+190 -- 223
+190 -- 224
+190 -- 236
+190 -- 240
+191 [fillcolor=gray][style=filled][pos="12,4"][pin=true]
+191 -- 192
+191 -- 208
+191 -- 221
+191 -- 238
+192 [fillcolor=blue][style=filled][fontcolor=white][pos="12,3"][pin=true]
+192 -- 208
+192 -- 221
+192 -- 224
+192 -- 238
+193 [fillcolor=blue][style=filled][fontcolor=white][pos="13,18"][pin=true]
+193 -- 194
+193 -- 195
+193 -- 209
+193 -- 210
+193 -- 225
+193 -- 227
+193 -- 241
+194 [fillcolor=blue][style=filled][fontcolor=white][pos="13,17"][pin=true]
+194 -- 195
+194 -- 210
+194 -- 212
+194 -- 226
+194 -- 228
+194 -- 241
+195 [fillcolor=gray][style=filled][pos="13,16"][pin=true]
+195 -- 210
+195 -- 212
+195 -- 226
+195 -- 228
+195 -- 241
+196 [fillcolor=gray][style=filled][pos="13,15"][pin=true]
+196 -- 211
+196 -- 215
+196 -- 229
+196 -- 243
+197 [fillcolor=gray][style=filled][pos="13,14"][pin=true]
+197 -- 204
+197 -- 215
+197 -- 218
+197 -- 226
+197 -- 248
+198 [fillcolor=gray][style=filled][pos="13,13"][pin=true]
+199 [fillcolor=gray][style=filled][pos="13,12"][pin=true]
+199 -- 201
+200 [fillcolor=gray][style=filled][pos="13,11"][pin=true]
+200 -- 201
+200 -- 202
+200 -- 203
+201 [fillcolor=gray][style=filled][pos="13,10"][pin=true]
+201 -- 202
+202 [fillcolor=gray][style=filled][pos="13,9"][pin=true]
+202 -- 203
+203 [fillcolor=gray][style=filled][pos="13,8"][pin=true]
+204 [fillcolor=gray][style=filled][pos="13,7"][pin=true]
+204 -- 205
+204 -- 206
+204 -- 218
+204 -- 222
+204 -- 223
+204 -- 237
+204 -- 248
+204 -- 253
+204 -- 254
+204 -- 256
+205 [fillcolor=gray][style=filled][pos="13,6"][pin=true]
+205 -- 222
+205 -- 223
+205 -- 235
+205 -- 236
+205 -- 237
+205 -- 252
+205 -- 253
+205 -- 254
+205 -- 256
+206 [fillcolor=gray][style=filled][pos="13,5"][pin=true]
+206 -- 222
+206 -- 223
+206 -- 237
+206 -- 253
+206 -- 254
+206 -- 256
+207 [fillcolor=blue][style=filled][fontcolor=white][pos="13,4"][pin=true]
+207 -- 220
+207 -- 224
+207 -- 239
+207 -- 240
+207 -- 255
+208 [fillcolor=blue][style=filled][fontcolor=white][pos="13,3"][pin=true]
+208 -- 221
+208 -- 238
+209 [fillcolor=gray][style=filled][pos="14,18"][pin=true]
+209 -- 210
+209 -- 211
+209 -- 225
+209 -- 227
+209 -- 242
+209 -- 243
+210 [fillcolor=blue][style=filled][fontcolor=white][pos="14,17"][pin=true]
+210 -- 212
+210 -- 225
+210 -- 226
+210 -- 227
+210 -- 228
+210 -- 241
+210 -- 242
+211 [fillcolor=blue][style=filled][fontcolor=white][pos="14,16"][pin=true]
+211 -- 225
+211 -- 229
+211 -- 242
+211 -- 243
+212 [fillcolor=gray][style=filled][pos="14,15"][pin=true]
+212 -- 213
+212 -- 214
+212 -- 227
+212 -- 228
+212 -- 230
+212 -- 242
+212 -- 244
+212 -- 245
+213 [fillcolor=gray][style=filled][pos="14,14"][pin=true]
+213 -- 214
+213 -- 227
+213 -- 229
+213 -- 230
+213 -- 231
+213 -- 232
+213 -- 244
+213 -- 245
+213 -- 246
+213 -- 247
+214 [fillcolor=gray][style=filled][pos="14,13"][pin=true]
+214 -- 229
+214 -- 230
+214 -- 231
+214 -- 232
+214 -- 233
+214 -- 244
+214 -- 245
+214 -- 246
+214 -- 247
+215 [fillcolor=gray][style=filled][pos="14,12"][pin=true]
+215 -- 216
+215 -- 217
+215 -- 218
+216 [fillcolor=gray][style=filled][pos="14,11"][pin=true]
+216 -- 217
+217 [fillcolor=gray][style=filled][pos="14,10"][pin=true]
+218 [fillcolor=gray][style=filled][pos="14,9"][pin=true]
+219 [fillcolor=gray][style=filled][pos="14,8"][pin=true]
+219 -- 220
+219 -- 232
+219 -- 233
+219 -- 234
+219 -- 235
+219 -- 236
+219 -- 249
+219 -- 250
+219 -- 251
+219 -- 252
+219 -- 255
+220 [fillcolor=gray][style=filled][pos="14,7"][pin=true]
+220 -- 221
+220 -- 224
+220 -- 233
+220 -- 234
+220 -- 238
+220 -- 239
+220 -- 240
+220 -- 251
+220 -- 252
+220 -- 255
+221 [fillcolor=gray][style=filled][pos="14,6"][pin=true]
+221 -- 234
+221 -- 238
+222 [fillcolor=gray][style=filled][pos="14,5"][pin=true]
+222 -- 223
+222 -- 237
+222 -- 253
+222 -- 254
+222 -- 256
+223 [fillcolor=blue][style=filled][fontcolor=white][pos="14,4"][pin=true]
+223 -- 237
+223 -- 253
+223 -- 254
+223 -- 256
+224 [fillcolor=gray][style=filled][pos="14,3"][pin=true]
+224 -- 239
+224 -- 240
+224 -- 255
+225 [fillcolor=gray][style=filled][pos="15,18"][pin=true]
+225 -- 227
+225 -- 241
+225 -- 242
+225 -- 243
+225 -- 244
+226 [fillcolor=gray][style=filled][pos="15,17"][pin=true]
+226 -- 228
+226 -- 241
+226 -- 248
+227 [fillcolor=blue][style=filled][fontcolor=white][pos="15,16"][pin=true]
+227 -- 228
+227 -- 229
+227 -- 241
+227 -- 242
+227 -- 243
+227 -- 244
+227 -- 245
+228 [fillcolor=blue][style=filled][fontcolor=white][pos="15,15"][pin=true]
+228 -- 241
+228 -- 244
+228 -- 245
+228 -- 248
+229 [fillcolor=gray][style=filled][pos="15,14"][pin=true]
+229 -- 230
+229 -- 242
+229 -- 243
+229 -- 244
+230 [fillcolor=gray][style=filled][pos="15,13"][pin=true]
+230 -- 231
+230 -- 232
+230 -- 234
+230 -- 243
+230 -- 244
+230 -- 245
+230 -- 246
+230 -- 247
+230 -- 249
+231 [fillcolor=gray][style=filled][pos="15,12"][pin=true]
+231 -- 232
+231 -- 233
+231 -- 234
+231 -- 245
+231 -- 246
+231 -- 247
+231 -- 249
+232 [fillcolor=gray][style=filled][pos="15,11"][pin=true]
+232 -- 233
+232 -- 234
+232 -- 246
+232 -- 247
+232 -- 249
+232 -- 251
+233 [fillcolor=gray][style=filled][pos="15,10"][pin=true]
+233 -- 234
+233 -- 246
+233 -- 247
+233 -- 249
+233 -- 251
+234 [fillcolor=gray][style=filled][pos="15,9"][pin=true]
+234 -- 238
+234 -- 249
+234 -- 251
+235 [fillcolor=gray][style=filled][pos="15,8"][pin=true]
+235 -- 236
+235 -- 248
+235 -- 250
+235 -- 251
+235 -- 252
+235 -- 253
+236 [fillcolor=gray][style=filled][pos="15,7"][pin=true]
+236 -- 239
+236 -- 240
+236 -- 248
+236 -- 250
+236 -- 251
+236 -- 252
+236 -- 253
+237 [fillcolor=gray][style=filled][pos="15,6"][pin=true]
+237 -- 253
+237 -- 254
+237 -- 256
+238 [fillcolor=blue][style=filled][fontcolor=white][pos="15,5"][pin=true]
+238 -- 255
+239 [fillcolor=blue][style=filled][fontcolor=white][pos="15,4"][pin=true]
+239 -- 240
+239 -- 251
+239 -- 252
+239 -- 255
+240 [fillcolor=gray][style=filled][pos="15,3"][pin=true]
+240 -- 252
+240 -- 255
+241 [fillcolor=gray][style=filled][pos="16,18"][pin=true]
+241 -- 242
+242 [fillcolor=gray][style=filled][pos="16,17"][pin=true]
+242 -- 243
+242 -- 244
+243 [fillcolor=gray][style=filled][pos="16,16"][pin=true]
+243 -- 244
+244 [fillcolor=blue][style=filled][fontcolor=white][pos="16,15"][pin=true]
+244 -- 245
+244 -- 246
+245 [fillcolor=blue][style=filled][fontcolor=white][pos="16,14"][pin=true]
+245 -- 246
+245 -- 247
+246 [fillcolor=blue][style=filled][fontcolor=white][pos="16,13"][pin=true]
+246 -- 247
+247 [fillcolor=blue][style=filled][fontcolor=white][pos="16,12"][pin=true]
+247 -- 248
+247 -- 249
+247 -- 250
+248 [fillcolor=blue][style=filled][fontcolor=white][pos="16,11"][pin=true]
+248 -- 250
+248 -- 252
+248 -- 253
+249 [fillcolor=blue][style=filled][fontcolor=white][pos="16,10"][pin=true]
+249 -- 251
+250 [fillcolor=blue][style=filled][fontcolor=white][pos="16,9"][pin=true]
+250 -- 251
+250 -- 252
+250 -- 253
+251 [fillcolor=blue][style=filled][fontcolor=white][pos="16,8"][pin=true]
+251 -- 252
+251 -- 255
+252 [fillcolor=blue][style=filled][fontcolor=white][pos="16,7"][pin=true]
+252 -- 255
+253 [fillcolor=blue][style=filled][fontcolor=white][pos="16,6"][pin=true]
+253 -- 254
+253 -- 256
+254 [fillcolor=blue][style=filled][fontcolor=white][pos="16,5"][pin=true]
+254 -- 256
+255 [fillcolor=gray][style=filled][pos="16,4"][pin=true]
+256 [fillcolor=gray][style=filled][pos="16,3"][pin=true]
+}

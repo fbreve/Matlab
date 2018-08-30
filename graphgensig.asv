@@ -1,0 +1,6 @@
+% Gera grafo conecando vizinhos 
+function W = graphgensig(X,sigma)
+    qtnode = size(X,1);
+    W = exp(-squareform(pdist(X,'euclidean').^2)/2*sigma^2); % primeiro passo
+    W = W - eye(qtnode);  % zerando diagonal
+end

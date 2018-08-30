@@ -1,0 +1,17 @@
+ind=1;
+tab_acc = zeros(41,1);
+tab_std_acc = zeros(41,1);
+iter_acc = zeros(20,1);
+ind_x=1;
+for i=0:1:40
+    parfor l=1:20
+        [owner, pot] = wtrwalk2(graph, 3, 160000, 0.5, 0.4, 1.0, i);
+        iter_acc(l) = tmweval(label,owner);
+    end
+    tab_acc(ind_x)=mean(iter_acc);
+    tab_std_acc(ind_x)=std(iter_acc);
+    disp(sprintf('probexp: %0.4f  Acerto Médio: %0.4f  Desv. Pad.: %0.4f',i,tab_acc(ind_x),tab_std_acc(ind_x)))
+    save tab_acc tab_acc;
+    save tab_std_acc tab_std_acc;
+    ind_x = ind_x + 1;
+end

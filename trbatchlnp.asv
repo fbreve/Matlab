@@ -1,0 +1,32 @@
+GPUstart
+spmd
+    GPUstart
+end
+
+subsetmax = 12;
+
+iter_err = zeros(100,1);
+tab_err = zeros(subsetmax,1);
+tab_par = zeros(subsetmax,1);
+%tab_owndeg = zeros(size(X,1),max(label),subsetmax);
+
+options = gaoptimset('Display','iter','UseParallel','always','FitnessLimit',0,'StallGenLimit',10,'Generations',50);
+
+for subset=1:1:subsetmax
+    [label, slabel] = trreadlabels(y,idxLabs,subset);
+  
+    disp(sprintf('Rodando Algoritmo Genético para Subset %02.0f - Linear Neighbor Propagation',subset))
+    for k = 1:100
+        owner = gpulnp(X,slabel,k);    
+        iter_err(k) = 1-stmwevalk(label,slabel,owner);
+        disp(sprintf('Linear NP - Subset: %02.0f  K: %0.4f  Erro: %0.4f',subset,k,iter_err(k)))
+    end
+    [~,ind] = min(iter_err);
+    
+    tab_err(subset) = iter_e
+    
+    disp(sprintf('Linear NP - Subset: %02.0f  K: %0.4f  Erro: %0.4f  Acerto: %0.4f  Kappa: %0.4f',subset,gaout,tab_err(subset),tab_acc(subset),tab_kap(subset)))   
+    
+    save tab_comp tab_err tab_par;
+end
+

@@ -1,0 +1,4 @@
+function y = fitlnpquad(w,G)
+    owner = gpuzhou(X,slabel,sigma);
+    y = 1-stmwevalk(label,slabel,owner);
+end

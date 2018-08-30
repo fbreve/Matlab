@@ -1,0 +1,22 @@
+% Matrix To Non-Weighted Graph
+% Transforma uma matriz de atributos (onde cada linha é uma amostra e cada
+% coluna é um atributo) em um grafo sem pesos através de distância euclidiana
+% Usage: graph = mat2nwgraph(X,sigma)
+function graph = mat2nwgraph(X,sigma)
+    [l,c] = size(X);
+    X = X - repmat(min(X),l,1);
+    X = X ./ repmat(max(X),l,1);
+    graph = exp(-squareform(pdist(X,'seuclidean').^2)/2*sigma^2);
+    graph = graph - eye(l);
+    
+    
+    W = squareform(pdist(X,'seuclidean').^2);  % gerando matriz de afinidade
+    graph = W <= sigma;  % gerando grafo com limiar sobre matriz de afinidade
+    %B = sort(W,2);  % ordenando matriz de afinidade
+    %G2 = W <= repmat(B(:,knn+1),1,qtnode);  % conectando k-vizinhos mais próximos
+    %graph = G1 | G2;  % juntando grafo limiar com grafo k-vizinhos
+    graph = graph - eye(qtnode);  % zerando diagonal do grafo
+    
+    %graph = graph / max(max(graph));
+    %graph = 1 - graph - eye(l);
+end

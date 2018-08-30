@@ -1,0 +1,3 @@
+for i=1:10
+    [owner,t,i] = zhoutime(X,label,slabel,2,10000,0.99,10);
+end

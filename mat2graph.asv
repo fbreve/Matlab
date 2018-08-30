@@ -1,0 +1,12 @@
+% Matrix To Graph
+% Transforma uma matriz de atributos (onde cada linha é uma amostra e cada
+% coluna é um atributo) em um grafo através de distância euclidiana
+% Usage: graph = mat2graph(X)
+function graph = mat2graph(X)
+    [l,c] = size(X);
+    X = X - repmat(min(X),l,1);
+    X = X ./ repmat(max(X),l,1);
+    graph = squareform(pdist(X,'seuclidean'));
+    graph = graph / max(max(graph));
+    %graph = 1 - graph - eye(l);
+end

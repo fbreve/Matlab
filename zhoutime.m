@@ -1,0 +1,48 @@
+% Método do artigo "Learning with Local and Global Consistency" 
+% Autores: Dengyong Zhou, Olivier Bousquet, Thomas Navin Lal, Jason Weston,
+% e Bernard Schölkopf
+% Uso: owner = zhou(X,slabel,iter,alpha,sigma)
+% X = vetor de atributos (linha = elementos, coluna = atributos)
+% slabel = vetor com rótulo numérico (>0) dos elementos pré-rotulados (0 para 
+%          elementos não rotulados)
+% nclass = número de classes
+% iter = número de iterações
+% alpha = no inteverlo [0 1], define quantidade relativa de informação vinda dos
+%         vizinhos e da informação inicial
+% sigma = ?
+function [owner,t,it] = zhoutime(X,label,slabel,nclass,iter,alpha,sigma)
+tic;
+qtnode = size(X,1);  % quantidade de elementos
+W = exp(-squareform(pdist(X,'seuclidean').^2)/2*sigma^2); % primeiro passo
+W = W - eye(qtnode);  % zerando diagonal
+D = diag(sum(W,2));
+S = D^(-1/2) * W * D^(-1/2); % segundo passo
+Y = zeros(qtnode,nclass); 
+%noch = 0; % conta a quantas iterações não houve mudança
+for i=1:qtnode
+    if slabel(i)~=0
+        Y(i,slabel(i))=1;
+    end
+end
+F = Y;
+[nil,owner] = max(F,[],2);
+for i=1:iter  % terceiro passo - iterações
+    F = alpha * S * F + (1 - alpha) * Y;
+    %ownerbak = owner;
+    [nil,owner] = max(F,[],2);
+    %if sum(ownerbak~=owner)==0  % se não houve mudança
+    %    noch = noch + 1;
+    %    if noch>=100  % testa convergência
+    %        break; 
+    %    end
+    %else
+    %    noch = 0;
+    %end
+    if stmweval(label,slabel,owner)>=0.95
+        it=i;
+        break;
+    end
+end
+%[nil,owner] = max(F,[],2); % quarto passo
+t = toc;
+end

@@ -1,0 +1,13 @@
+rep = 200; % numero de repetições
+tab_acc = zeros(21,rep);
+accuracy = zeros(21,1);
+for l=1:rep
+    [graph, label] = graphgen3([32 32 32 32],6,16);    
+    parfor i=0:20
+        [owner, pot, owndeg] = ftrwalk5(graph, 4, 50, i*0.05, 0.1, 1);
+        tab_acc(l,i) = tmweval(label,owner);
+    end
+ 
+    disp(sprintf('Repetição: %3.0f',l))
+    save tab_acc tab_acc;
+end

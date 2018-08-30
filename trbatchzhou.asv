@@ -1,0 +1,44 @@
+GPUstart
+spmd
+    GPUstart
+end
+
+subsetmax = 12;
+kmax = 50;
+
+iter_err = zeros(kmax,1);
+tab_err = zeros(subsetmax,1);
+tab_par = zeros(subsetmax,1);
+
+%options = gaoptimset('Display','iter','UseParallel','always','FitnessLimit',0,'StallGenLimit',20,'Generations',50);
+options = gaoptimset('Display','iter','UseParallel','always','FitnessLimit');
+
+for subset=1:1:subsetmax
+    [label, slabel] = trreadlabels(y,idxLabs,subset);
+  
+    disp(sprintf('Rodando LNP para Subset %02.0f - Linear Neighbor Propagation',subset))
+    for k = 1:kmax
+        owner = gpulnp(X,slabel,k);    
+        iter_err(k) = 1-stmwevalk(label,slabel,owner);
+        disp(sprintf('Linear NP - Subset: %02.0f  K: %2.0f  Erro: %0.4f',subset,k,iter_err(k)))
+    end
+    [~,ind] = min(iter_err);
+    
+    
+    disp(sprintf('Rodando Algoritmo Genético para Subset %02.0f - Consistency Method',subset))
+    fitfunzhou = @(x)fitzhou(x,X,slabel,label);
+    [gaout, fval] = ga(fitfunzhou,1,[],[],[],[],0,100,[],options);
+    tab_err(subset) = fval;
+    tab_par(subset) = gaout;
+    disp(sprintf('Linear NP - Subset: %02.0f  K: %2.0f  Erro: %0.4f',subset,tab_par(subset),tab_err(subset)))   
+    disp(sprintf('Consistency Method - Subset: %02.0f  Sigma: %0.4f  Acerto: %0.4f  Kappa: %0.4f',subset,gaout,tab_acc(subset,1),tab_kap(subset,1)))
+    
+   
+    tab_err(subset) = iter_err(ind);
+    tab_par(subset) = ind;
+    
+
+    
+    save tab_comp tab_err tab_par;
+end
+

@@ -1,0 +1,20 @@
+% Lê labels das amostras do livro de SSL e passa para o formato suportado
+% pelos algoritmos strwalk
+function [label,slabel] = trreadlabels(y,idxLabs,subset)
+
+label = y;
+slabel = zeros(size(y));
+slabel(idxLabs(subset,:)) = y(idxLabs(subset,:));
+if sum(y==-1)>0
+    for i=1:size(y)
+        if slabel(i)==-1
+            slabel(i)=2;
+        end
+        if label(i)==-1
+            label(i)=2;
+        end
+    end
+else
+    label = y + 1;
+end
+end

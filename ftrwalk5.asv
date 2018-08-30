@@ -1,0 +1,76 @@
+% Fuzzy Territory Mark Walk v.5
+% Baseado em ftrwalk4 e strwalk7
+% Cada nó tem n potenciais, onde n é o número de partículas
+% Valores fuzzy obtidos com contagem de visitas ponderada por potencial de
+% partícula (contando apenas visitas no movimento aleatório)
+% Usage: [owner, pot, owndeg] = ftrwalk5(graph, npart, iter, pdet, deltav, deltap)
+function [owner, pot, owndeg] = ftrwalk5(graph, npart, iter, pdet, deltav, deltap)
+    if (nargin < 5) || isempty(pdet),
+        pdet = 0.600; % probabilidade de não explorar
+    end
+    if (nargin < 4) || isempty(deltav),
+        deltav = 0.300; % controle de velocidade de aumento/decremento do potencial do vértice
+    end
+    % constantes
+    potmax = 1.000; % potencial máximo
+    potmin = 0.000; % potencial mínimo
+    qtnode = size(graph,1); % quantidade de nós   
+    % tabela de potenciais de nós
+    pot = repmat(potmax/npart,qtnode,npart);
+    % definindo posição inicial das partículas
+    partpos = ceil(random('unif',zeros(npart,1),qtnode));
+    % definindo potencial da partícula
+    potpart = repmat(potmin,npart,1);
+    % definindo grau de propriedade
+    owndeg = repmat(0,qtnode,npart);
+    % series temporais
+    %s_pot = zeros(iter,1);
+    %s_acc = zeros(iter,1);
+    % para cada iteração
+    for i=1:iter
+        % para cada partícula
+        for j=1:npart
+            % calculando probabilidade de exploração
+            %if random('unif',0,1)<(pdet + i/iter*(1-pdet))
+            if random('unif',0,1)<pdet
+                % regra de probabilidade
+                %prob = graph(partpos(j),:) .* (pot(:,j)>=max(pot,[],2))';
+                prob = graph(partpos(j),:) .* pot(:,j)';
+            else
+                % regra de probabilidade
+                prob = graph(partpos(j),:);
+            end
+            % definindo tamanho da roleta
+            roulettsize = sum(prob);
+            % girando a roleta para sortear o novo nó
+            roulettpick = random('unif',0,roulettsize);
+            % descobrindo quem foi o nó sorteado
+            k=1;
+            while k<=qtnode && roulettpick>prob(k)
+                roulettpick = roulettpick - prob(k);
+                k = k + 1;
+            end
+            if k>qtnode
+                disp('Valor fora da roleta? Isso não deveria acontecer...')
+                k = random('unid',size(graph,1)); % partícula vai para nó escolhido aleatoriamente
+            end
+            % calculando novos potenciais para nó
+            deltapotpart = pot(k,:) - max(potmin,pot(k,:) - potpart(j)*(deltav/(npart-1)));
+            pot(k,:) = pot(k,:) - deltapotpart;
+            pot(k,j) = pot(k,j) + sum(deltapotpart);
+            % atribui novo potencial para partícula
+            potpart(j) = potpart(j) + (pot(k,j)-potpart(j))*deltap;                               
+            % se não houve choque
+            if pot(k,j)>=max(pot(k,:))
+                % muda para nó alvo
+                partpos(j) = k;
+            end
+            % contador de visita
+            owndeg(k,j) = owndeg( + 
+        end
+        %[nil,owner] = max(pot,[],2);
+        %s_acc(i) = tmweval(label,owner);
+        %s_pot(i) = mean(max(pot,[],2));
+    end
+    [nil,owner] = max(pot,[],2);   
+end

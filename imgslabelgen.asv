@@ -1,0 +1,5 @@
+gt = imgslab;
+bg = find(imgslab==64);
+fg = 
+imgslab(bg) = imgslab(bg)) + 64*uint8(randgrid(bg));
+imgslab(find(imgslab==255)) = imgslab(find(imgslab==255)) - 127*uint8(randgrid(find(imgslab==255)));

@@ -1,0 +1,42 @@
+% Método "Label Propagation", de Zhu and Ghahramani (2002)
+% Uso: owner = labelprop(X,slabel,nclass,iter,sigma)
+% X = vetor de atributos (linha = elementos, coluna = atributos)
+% slabel = vetor com rótulo numérico (>0) dos elementos pré-rotulados (0 para 
+%          elementos não rotulados)
+% nclass = número de classes
+% iter = número de iterações
+% alpha = no inteverlo [0 1], define quantidade relativa de informação vinda dos
+%         vizinhos e da informação inicial
+% sigma = ?
+function owner = labelprop(X,slabel,nclass,iter,sigma)
+qtnode = size(X,1);  % quantidade de elementos
+W = exp(-squareform(pdist(X,'seuclidean').^2)/2*sigma^2); % primeiro passo
+%W = W - eye(qtnode);  % zerando diagonal
+D = diag(sum(W,2));
+Y = zeros(qtnode,nclass); 
+noch = 0; % conta a quantas iterações não houve mudança
+for i=1:qtnode
+    if slabel(i)~=0
+        Y(i,slabel(i))=1;
+    end
+end
+for j=1:iter  % terceiro passo - iterações
+    Y = D^(-1) * W * Y;
+    for i=1:qtnode
+        if slabel(i)~=0
+            Y(i,:)=0;
+            Y(i,slabel(i))=1;
+        end
+    end
+    ownerbak = owner;
+    [nil,owner] = max(Y,[],2);
+    if sum(ownerbak~=owner)==0  % se não houve mudança
+        noch = noch + 1;
+        if noch>=100  % testa convergência
+            break; 
+        end
+    else
+        noch = 0;
+    end
+end
+end

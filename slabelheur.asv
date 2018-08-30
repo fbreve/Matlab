@@ -1,0 +1,51 @@
+% Gerador de slabel heurístico (nós rotulados = classe, nós não rotulados = 0)
+% Uso: slabel = slabelheur(X)
+% X = dataset
+% Define os pontos mais remotos nas 4 direções (norte, sul, leste, oeste)
+% de um problema de 2 dimensões como sendo os nós rotulados.
+function slabel = slabelheur(X)
+    %qtnode = size(label,1);         % quantidade de nós
+    slabel = zeros(qtnode,1);       % vetor slabel
+    [y,ind] = min(X(:,1));
+    slabel(ind) = 1;
+    [y,ind] = min(X(:,2));
+    slabel(ind) = 2;
+    [y,ind] = max(X(:,1));
+    slabel(ind) = 3;
+    [y,ind] = max(X(:,2));
+    slabel(ind) = 4;
+    plabc = round(qtnode*amount);   % quantidade de nós pré-rotulados
+    qtclass = max(label);           % quantidade de classes
+    pwrlab = round(plabc*amwrlab);  % quantidade de nós com label incorreto
+    % garantindo um nó pré-rotulado para cada classe
+    for i=1:qtclass  % para cada classe
+        while 1 % repete até nó aleatório da classe desejada
+            r = random('unid',qtnode); % escolhe nó aleatório
+            if label(r)==i          % se nó aleatório é da classe desejada
+                break;              
+            end
+        end
+        slabel(r)=i; 
+        plabc = plabc - 1;
+    end
+    % escolhendo demais nós pré-rotulados corretamente
+    while plabc>pwrlab
+        r = random('unid',qtnode);  % escolhe nó aleatório
+        if slabel(r)==0             % se nó aleatório ainda não escolhido
+            slabel(r) = label(r);   % nó passa a ser pré-rotulado
+            plabc = plabc - 1;      
+        end
+    end
+    % escolhendo nós pré-rotulados erroneamente
+    while plabc>0
+        r = random('unid',qtnode);  % escolhe nó aleatório
+        if slabel(r)==0             % se nó ainda não escolhido
+            wrlab = random('unid',qtclass-1);   % gera classe errada 
+            if wrlab >= label(r)            
+                wrlab = wrlab + 1;
+            end
+            slabel(r) = wrlab; % atribui classe errada
+            plabc = plabc - 1;
+        end       
+    end
+end

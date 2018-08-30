@@ -1,0 +1,52 @@
+rep = 100; % numero de repetições
+amount = 0.10;
+classes = 3;
+qtalg = 4;
+amwrlabmax = round(20/classes)+1;
+
+iter_acc = zeros(rep,qtalg);
+iter_kap = zeros(rep,qtalg);
+
+tab_acc=zeros(amwrlabmax,qtalg);
+tab_std_acc=zeros(amwrlabmax,qtalg);
+tab_min_acc=zeros(amwrlabmax,qtalg);
+tab_max_acc=zeros(amwrlabmax,qtalg);
+tab_kap=zeros(amwrlabmax,qtalg);
+tab_std_kap=zeros(amwrlabmax,qtalg);
+tab_min_kap=zeros(amwrlabmax,qtalg);
+tab_max_kap=zeros(amwrlabmax,qtalg);
+
+vet_acc = zeros(20,1);
+vet_kap = zeros(20,1);       
+
+for i=1:amwrlabmax
+    amwrlab = i*0.05 - 0.05;
+    for l=1:rep  
+         slabel = slabelgenwl(label,amount,amwrlab);        
+        parfor j=1:20
+            owner = zhou(X,slabel,classes,10000,0.99,9);
+            [vet_acc(j),vet_kap(j)] = stmwevalk(label,slabel,owner);                
+        end
+        %[acc1,k1] = stmwevalk(label,slabel,owner);  
+        owner = labelprop(X,slabel,classes,10000,6);
+        [acc2,k2] = stmwevalk(label,slabel,owner);              
+        [owner, pot, owndeg, distnode] = strwalk8(X, slabel, classes, 200000, 0.5, 0.1, 1.0, 8, 2.0);
+        [acc3,k3] = stmwevalk(label,slabel,owner);
+        [nil,owner2] = max(owndeg,[],2);
+        [acc4,k4] = stmwevalk(label,slabel,owner2);   
+        disp(sprintf('Perc: %0.4f  Rep: %3.0f/%3.0f  CO: %0.4f  LP: %0.4f  P1: %0.4f  P2: %0.4f',amwrlab,l,rep,k1,k2,k3,k4))
+        iter_acc(l,:) = [acc1,acc2,acc3,acc4];
+        iter_kap(l,:) = [k1,k2,k3,k4];
+    end
+    tab_acc(i,:)=mean(iter_acc);
+    tab_std_acc(i,:)=std(iter_acc);
+    tab_min_acc(i,:)=min(iter_acc);
+    tab_max_acc(i,:)=max(iter_acc);
+    tab_kap(i,:)=mean(iter_kap);
+    tab_std_kap(i,:)=std(iter_kap);
+    tab_min_kap(i,:)=min(iter_kap);
+    tab_max_kap(i,:)=max(iter_kap);
+    save tabs tab_acc tab_std_acc tab_min_acc tab_max_acc tab_kap tab_std_kap tab_min_kap tab_max_kap;
+    disp(sprintf('FINAL: Perc: %0.4f  CO: %0.4f  LP: %0.4f  P1: %0.4f  P2: %0.4f',amwrlab,tab_kap(i,1),tab_kap(i,2),tab_kap(i,3),tab_kap(i,4)))
+end
+

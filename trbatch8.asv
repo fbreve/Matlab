@@ -1,0 +1,14 @@
+iter_acc = zeros(100,1);
+tab_acc=0;
+tab_std_acc=0;
+ind_x=1;
+for l=1:100
+    onwer = kmeans(X,3);
+    iter_acc(l) = tmweval(label,owner);
+    disp(sprintf('iteração %0.4f Acerto: %0.4f',i,tab_acc,tab_std_acc))
+end
+tab_acc=mean(iter_acc);
+tab_std_acc=std(iter_acc);
+disp(sprintf('probexp: %0.4f  Acerto Médio: %0.4f  Desv. Pad.: %0.4f',i,tab_acc,tab_std_acc))
+save tab_acc tab_acc;
+save tab_std_acc tab_std_acc;

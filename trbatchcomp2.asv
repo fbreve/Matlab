@@ -1,0 +1,42 @@
+rep = 100; % numero de repetições
+isize = 4;
+
+iter_acc = zeros(rep,3);
+iter_kap = zeros(rep,3);
+
+tab_acc=zeros(isize,3);
+tab_std_acc=zeros(isize,3);
+tab_min_acc=zeros(isize,3);
+tab_max_acc=zeros(isize,3);
+tab_kap=zeros(isize,3);
+tab_std_kap=zeros(isize,3);
+tab_min_kap=zeros(isize,3);
+tab_max_kap=zeros(isize,3);
+
+ind_x = 0;
+for i=0.1:-0.01:0.02
+    parfor l=1:rep
+        slabel = slabelgen(label,i);
+        owner = zhou(X,slabel,3,10000,0.99,7);
+        [acc1,k1] = stmwevalk(label,slabel,owner);
+        owner = labelprop(X,slabel,3,10000,19);
+        [acc2,k2] = stmwevalk(label,slabel,owner);
+        [owner, pot, owndeg, distnode] = strwalk8(X, slabel, 3, 20000, 0.5, 0.1, 1.0, 0.7, 2.0);
+        [acc3,k3] = stmwevalk(label,slabel,owner);
+        [nil,owner2] = max[ow
+        iter_acc(l,:) = [acc1,acc2,acc3];
+        iter_kap(l,:) = [k1,k2,k3];
+    end
+    ind_x = ind_x + 1;
+    tab_acc(ind_x,:)=mean(iter_acc);
+    tab_std_acc(ind_x,:)=std(iter_acc);
+    tab_min_acc(ind_x,:)=min(iter_acc);
+    tab_max_acc(ind_x,:)=max(iter_acc);
+    tab_kap(ind_x,:)=mean(iter_kap);
+    tab_std_kap(ind_x,:)=std(iter_kap);
+    tab_min_kap(ind_x,:)=min(iter_kap);
+    tab_max_kap(ind_x,:)=max(iter_kap);
+    save tabs2 tab_acc tab_std_acc tab_min_acc tab_max_acc tab_kap tab_std_kap tab_min_kap tab_max_kap;
+    disp(sprintf('Percent: %0.4f  Consistency: %0.4f  Label Prop: %0.4f  Particle: %0.4f',i,tab_kap(ind_x,1),tab_kap(ind_x,2),tab_kap(ind_x,3)))
+end
+

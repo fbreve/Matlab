@@ -1,0 +1,29 @@
+rep=100;
+tab_owndeg = zeros(size(X),max(label),rep);
+tab_stddev = zeros(size(X),max(label),rep);
+    parfor l=1:100
+        slabel = slabelgen(label,0.01);
+        [owner, pot, owndeg, distnode] = strwalk8(X, slabel, 2, 200000, 0.5, 0.1, 1.0, 0.2, 2);
+        tab_owndeg(:,:,l) = owndeg;       
+        disp(sprintf('Percent: %0.4f  Rep: %3.0f/%3.0f  Consistency: %0.4f  Label Prop: %0.4f  Particle: %0.4f  Particle2: %0.4f',i,l,rep,k1,k2,k3,k4))
+    end
+    tab_owndeg(ind_x,:)=mean(iter);
+    tab_stddev(ind_x,:)=std(iter);
+    disp(sprintf('i: %d Deg: %0.4f %0.4f %0.4f %0.4f',i,tab_owndeg(ind_x,1),tab_owndeg(ind_x,2),tab_owndeg(ind_x,3),tab_owndeg(ind_x,4)))
+    save tabs tab_owndeg tab_stddev
+    ind_x = ind_x + 1;
+end
+for i=0:4
+    parfor l=1:100
+        [graph, label] = graphgen2([32 32 32 32],6,16);
+        [graph, label] = addoverlapnode(graph,label,[8-i 4 4 i]);
+        [owner, pot, owndeg] = ftrwalk5(graph, 4, 50000, 0.5, 0.4, 0.9);
+        [accuracy, owner, owndeg] = tmwevaloverlap(label,owner,owndeg);
+        iter(l,:) = owndeg(129,:);
+    end
+    tab_owndeg(ind_x,:)=mean(iter);
+    tab_stddev(ind_x,:)=std(iter);
+    disp(sprintf('i: %d Deg: %0.4f %0.4f %0.4f %0.4f',i,tab_owndeg(ind_x,1),tab_owndeg(ind_x,2),tab_owndeg(ind_x,3),tab_owndeg(ind_x,4)))
+    save tabs tab_owndeg tab_stddev
+    ind_x = ind_x + 1;
+end
