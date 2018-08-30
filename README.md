@@ -6,8 +6,8 @@ This is my messy Matlab work directory. I intend to sort things out some day in 
 You may be interested in the following files:
 
 Particle Competition and Cooperation [1,2]:
-strwalk8kmex.m
-strwalk8kloop.c
+- strwalk8kmex.m
+- strwalk8kloop.c
 
 [1] Breve, Fabricio Aparecido; Zhao, Liang; Quiles, Marcos Gonçalves; Pedrycz, Witold; Liu, Jiming, 
 Particle Competition and Cooperation in Networks for Semi-Supervised Learning," 
