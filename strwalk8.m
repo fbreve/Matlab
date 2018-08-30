@@ -1,3 +1,6 @@
+% Particle Competition and Cooperation
+% by Fabricio Breve
+%
 % Falta otimizações que foram incluídas na versão ke
 % Unificar versões: terceiro parâmetro p/ selecionar euclidiana normalizada
 % ou não normalizada

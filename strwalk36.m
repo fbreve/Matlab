@@ -148,7 +148,7 @@ if k>0
     potval(sub2ind(size(potval),partnode,slabelval(partnode))) = 1;
     owndeg = repmat(realmin,qtnodeval,nclass);
     %disp('Parte 1: Partículas caminhando...')
-    [potval, owndeg] = strwalk8kloop(maxiter, npart, nclass, stopmax, pgrd, dexp, deltav, deltap, potmin, partnode, partclass, potpart, slabelval, knns, distnode, KNN, potval, owndeg);
+    strwalk8kloop(maxiter, npart, nclass, stopmax, pgrd, dexp, deltav, deltap, potmin, partnode, partclass, potpart, slabelval, knns, distnode, KNN, potval, owndeg);
     clear KNN distnode slabelval;
     
     owndeg = owndeg ./ repmat(sum(owndeg,2),1,nclass);
@@ -242,7 +242,7 @@ if indefnodesc>0
     % variável para guardar máximo potencial mais alto médio
     % chamando o arquivo mex do strwalk25
     %disp('Parte 2: Propagação de rótulos...');
-    pot = strwalk25loop(maxiter, npart, nclass, stopmax, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
+    strwalk25loop(maxiter, npart, nclass, stopmax, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
     
     if k==0
         % zerando potenciais dos nós rotulados

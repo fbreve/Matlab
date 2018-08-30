@@ -1,3 +1,7 @@
+% Particle Competition and Cooperation (knn graph version)
+% by Fabricio Breve
+% This MEX version is ~10 times faster than the regular version
+%
 % Semi-Supervised Territory Mark Walk v.8k
 % Derivado de strwalk8.m (v.8)
 % Conta distância de de nós para o nó pré-rotulado mais próximo (v.2)

@@ -14,9 +14,6 @@
 #include <math.h>
 #include "mex.h"
 
-/* Add this declaration because it does not exist in the "mex.h" header */
-extern mxArray *mxCreateSharedDataCopy(const mxArray *pr);
-
 /* Input Arguments */
 
 #define	maxiter_IN      prhs[0]
@@ -30,25 +27,40 @@ extern mxArray *mxCreateSharedDataCopy(const mxArray *pr);
 #define ndist_IN        prhs[8]
 #define pot_IN          prhs[9]
 
-/* Output Arguments */
-
-#define	pot_OUT     	plhs[0]
-
-static void strwalk25loop(
-            int maxiter, 
-            int npart, 
-            int nclass, 
-            int stopmax,
-            unsigned int partnode[],
-            unsigned short int slabel[],
-            unsigned char nsize[],
-            unsigned int nlist[],
-            double ndist[],
-            double pot[],
-            int qtnode,
-            int neibmax
-		   )
-{
+void mexFunction( int nlhs, mxArray *plhs[], 
+		  int nrhs, const mxArray*prhs[] )    
+{    
+    int maxiter, npart, nclass, stopmax; // escalares int
+    unsigned int *partnode;
+    unsigned char *nsize;    
+    unsigned short int *slabel;
+    unsigned int *nlist; // matrizes de int
+    double *ndist, *pot;  // matrizes de double
+    int qtnode, neibmax;
+    
+    /* Check for proper number of arguments */
+    
+    
+    if (nrhs != 10) { 
+	    mexErrMsgTxt("10 argumentos de entrada requeridos."); 
+    } else if (nlhs > 0) {
+	    mexErrMsgTxt("This function no longer has output arguments. Update your code."); 
+    }
+    
+    maxiter = (int) mxGetScalar(maxiter_IN);
+    npart = (int) mxGetScalar(npart_IN);
+    nclass = (int) mxGetScalar(nclass_IN);
+    stopmax = (int) mxGetScalar(stopmax_IN);
+    partnode = (unsigned int *) mxGetData(partnode_IN);
+    slabel = (unsigned short int *) mxGetData(slabel_IN);
+    nsize = (unsigned char *) mxGetData(nsize_IN);    
+    nlist = (unsigned int *) mxGetData(nlist_IN);    
+    ndist = mxGetPr(ndist_IN);
+    pot = mxGetPr(pot_IN);
+    
+    qtnode = (int) mxGetM(slabel_IN);
+    neibmax = (int) mxGetN(nlist_IN);  // quantidade máxima de vizinhos que um nó tem   
+            
     // non-Windows users should probably use /dev/random or /dev/urandom instead of rand_s
     //unsigned int seed;
     //errno_t err;
@@ -120,52 +132,6 @@ static void strwalk25loop(
     free(nc);
     free(newpot);
     free(labeled);
-    return;
-}
-
-void mexFunction( int nlhs, mxArray *plhs[], 
-		  int nrhs, const mxArray*prhs[] )
-     
-{ 
-   
-    int maxiter, npart, nclass, stopmax; // escalares int
-    unsigned int *partnode;
-    unsigned char *nsize;    
-    unsigned short int *slabel;
-    unsigned int *nlist; // matrizes de int
-    double *ndist, *pot;  // matrizes de double
-    int qtnode, neibmax;
-    
-    /* Check for proper number of arguments */
-    
-    
-    if (nrhs != 10) { 
-	    mexErrMsgTxt("10 argumentos de entrada requeridos."); 
-    } else if (nlhs > 1) {
-	    mexErrMsgTxt("Muitos argumentos de saída."); 
-    }
-    
-    maxiter = (int) mxGetScalar(maxiter_IN);
-    npart = (int) mxGetScalar(npart_IN);
-    nclass = (int) mxGetScalar(nclass_IN);
-    stopmax = (int) mxGetScalar(stopmax_IN);
-    partnode = (unsigned int *) mxGetData(partnode_IN);
-    slabel = (unsigned short int *) mxGetData(slabel_IN);
-    nsize = (unsigned char *) mxGetData(nsize_IN);    
-    nlist = (unsigned int *) mxGetData(nlist_IN);    
-    ndist = mxGetPr(ndist_IN);
-    pot = mxGetPr(pot_IN);
-    
-    qtnode = (int) mxGetM(slabel_IN);
-    neibmax = (int) mxGetN(nlist_IN);  // quantidade máxima de vizinhos que um nó tem   
-    
-    /* Create a matrix for the return argument */ 
-   
-    //pot_OUT = pot_IN;
-    pot_OUT = mxCreateSharedDataCopy(pot_IN);
-        
-    strwalk25loop(maxiter,npart,nclass,stopmax,partnode,slabel,nsize,nlist,ndist,pot,qtnode,neibmax);
-    
     return;
     
 }
