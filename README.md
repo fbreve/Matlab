@@ -10,7 +10,7 @@ Particle Competition and Cooperation [1,2]:
 - strwalk8kloop.c
 
 [1] Breve, Fabricio Aparecido; Zhao, Liang; Quiles, Marcos Gonçalves; Pedrycz, Witold; Liu, Jiming, 
-Particle Competition and Cooperation in Networks for Semi-Supervised Learning," 
+"Particle Competition and Cooperation in Networks for Semi-Supervised Learning," 
 Knowledge and Data Engineering, IEEE Transactions on , vol.24, no.9, pp.1686,1698, Sept. 2012 
 doi: 10.1109/TKDE.2011.119
 
