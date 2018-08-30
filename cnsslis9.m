@@ -1,4 +1,4 @@
-% Complex Networks Semi-Supervised Learning Image Segmentation v5
+% Complex Networks Semi-Supervised Learning Image Segmentation v9
 % Trabalha na primeira fase com imagem redimensionada para um 1/9 do tamanho
 % original. Inclui ExR, ExB, e ExG. Exclui desvios padrões (v2)
 % Não inclui vizinhança recíproca (v3)
@@ -97,8 +97,8 @@ if k>0
     potval(labelednodes,:) = 0;
     % ajustando potencial da classe respectiva do nó rotulado para máximo
     potval(sub2ind(size(potval),labelednodes,slabelval(labelednodes))) = 1;
-    % variável para guardar máximo potencial mais alto médio
-    potval = cnsslis9loop(maxiter,nnonlabeled,indnonlabeled,stopmax,potval,k,KNN,KNND);
+    % calling the mex function
+    cnsslis9loop(maxiter,nnonlabeled,indnonlabeled,stopmax,potval,k,KNN,KNND);
 
     clear KNN slabelval KNNND;
            
@@ -192,7 +192,7 @@ if indefnodesc>0
     % variável para guardar máximo potencial mais alto médio
     % chamando o arquivo mex do strwalk25
     %disp('Parte 2: Propagação de rótulos...');
-    pot = strwalk25loop(maxiter, npart, nclass, stopmax, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
+    strwalk25loop(maxiter, npart, nclass, stopmax, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
     
     if k==0
         % zerando potenciais dos nós rotulados
