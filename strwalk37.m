@@ -1,9 +1,3 @@
-% 1) ajustar o arquivo C correspondente (colocar pesos), ajustar o primeiro arquivos C par incluir o KNND
-% 2) tirar retornos desnecessários KNN, KNND, knns
-% 3) recolocar clean nas variáveis que não serão mais necessárias (está comentado)
-% 
-
-
 % Semi-Supervised Territory Mark Walk v.37
 % Derivado de strwalk8.m (v.8)
 % Distância medida com k-vizinhos (v.8k)
@@ -70,8 +64,8 @@ if (nargin < 4) || isempty(k)
     k = 8; % quantidade de vizinhos mais próximos
 end
 if (nargin < 3) || isempty(fw)
-    fw = [1 1 0.5 0.5 0.5 0.5 0.5 0.5 0.5];
-    %fw = ones(1,9);
+    %fw = [1 1 0.5 0.5 0.5 0.5 0.5 0.5 0.5];
+    fw = ones(1,9);
 end
 % tratamento da entrada
 k = uint16(k);
@@ -257,7 +251,7 @@ if indefnodesc>0
     stopmax = round((qtnode/npart)*round(valpha*0.1)); % qtde de iterações para verificar convergência
     % variável para guardar máximo potencial mais alto médio
     % chamando o arquivo mex do strwalk25
-    disp('Parte 2: Propagação de rótulos...');
+    %disp('Parte 2: Propagação de rótulos...');
     strwalk25loop(maxiter, npart, nclass, stopmax, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
     
     if k==0
