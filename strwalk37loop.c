@@ -1,5 +1,3 @@
-// Atenção: atualizar scripts que usam este programa para que passem corretamente as variáveis tipadas
-
 /*=================================================================
  *
  *ESCALARES (int): maxiter, npart, nclass, stopmax
@@ -34,8 +32,9 @@ extern errno_t rand_s (unsigned int *randomValue);
 #define nsize_IN        prhs[13]
 #define distnode_IN     prhs[14]
 #define nlist_IN        prhs[15]
-#define pot_IN          prhs[16]
-#define owndeg_IN       prhs[17]
+#define ndist_IN        prhs[16]
+#define pot_IN          prhs[17]
+#define owndeg_IN       prhs[18]
 
 void mexFunction( int nlhs, mxArray *plhs[], 
 		  int nrhs, const mxArray*prhs[] )    
@@ -49,14 +48,14 @@ void mexFunction( int nlhs, mxArray *plhs[],
     double *potpart; // vetor de double
     unsigned int *nlist; // matrizes de int
     unsigned char *distnode;
-    double *pot, *owndeg;  // matrizes de double
+    double *pot, *owndeg, *ndist;  // matrizes de double
     int qtnode, neibmax;
     
     /* Check for proper number of arguments */
     
     
-    if (nrhs != 18) { 
-	    mexErrMsgTxt("18 argumentos de entrada requeridos."); 
+    if (nrhs != 19) { 
+	    mexErrMsgTxt("19 argumentos de entrada requeridos."); 
     } else if (nlhs > 0) {
 	    mexErrMsgTxt("Esta função não usa mais argumentos de saída."); 
     }
@@ -76,7 +75,8 @@ void mexFunction( int nlhs, mxArray *plhs[],
     slabel = (unsigned short int *) mxGetData(slabel_IN);
     nsize = (unsigned short int *) mxGetData(nsize_IN);
     distnode = (unsigned char *) mxGetData(distnode_IN);
-    nlist = (unsigned int *) mxGetData(nlist_IN);    
+    nlist = (unsigned int *) mxGetData(nlist_IN);
+    ndist = mxGetPr(ndist_IN);
     pot = mxGetPr(pot_IN);
     owndeg = mxGetPr(owndeg_IN);
     
@@ -107,7 +107,7 @@ void mexFunction( int nlhs, mxArray *plhs[],
                 //printf("movimento guloso\n");                
                 for(int i2=0; i2<nsize[partpos[j]-1]; i2++)
                 {
-                    prob[i2] = DBL_MIN + pot[((partclass[j]-1)*qtnode + nlist[(qtnode * i2 + partpos[j]-1)]-1)] * (1 / pow(1+distnode[(j * qtnode + nlist[(qtnode * i2 + partpos[j]-1)]-1)],dexp));
+                    prob[i2] = DBL_MIN + ndist[(qtnode * i2 + partpos[j]-1)] * pot[((partclass[j]-1)*qtnode + nlist[(qtnode * i2 + partpos[j]-1)]-1)] * (1 / pow(1+distnode[(j * qtnode + nlist[(qtnode * i2 + partpos[j]-1)]-1)],dexp));                    
                     probsum += prob[i2];
                     //printf("%0.10f\n",prob[i2]);
                 }               
@@ -115,8 +115,8 @@ void mexFunction( int nlhs, mxArray *plhs[],
             else // movimento aleatório        
             {
                 greedymov=0;
-                //printf("movimento aleatório\n");                
-                for(int i2=0; i2<nsize[partpos[j]-1]; i2++) prob[i2] = 1;
+                //printf("movimento aleatório\n");                                
+                for(int i2=0; i2<nsize[partpos[j]-1]; i2++) prob[i2] = ndist[(qtnode * i2 + partpos[j]-1)];
                 probsum = nsize[partpos[j]-1];                        
             }
             // vamos encontrar o nó sorteado

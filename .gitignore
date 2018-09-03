@@ -12,3 +12,5 @@ uci-datasets/*
 UCR_TS_Archive_2015/*
 
 tabs_strwalk36-PATOLINO\.mat
+*.asv
+*.log
