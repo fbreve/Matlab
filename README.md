@@ -1,7 +1,7 @@
 # Matlab
 My Matlab scripts and functions
 
-This is my messy Matlab work directory. I intend to sort things out some day in the future.
+This is my messy Matlab work directory. I intend to organize it some day in the future.
 
 You may be interested in the following files:
 
