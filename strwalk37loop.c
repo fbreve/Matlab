@@ -132,10 +132,11 @@ void mexFunction( int nlhs, mxArray *plhs[],
             }            
             
             //printf("K Sorteado: %i de %i\n",k,(int) nsize[(int) partpos[j]-1]);
-            // convertendo o índice de probabilidade sorteado no índice do nó sorteado
+            // get the weighted of the selected edge
+            double w = ndist[(k*qtnode + partpos[j]-1)];
+            // convertendo o índice de probabilidade sorteado no índice do nó sorteado            
             k = nlist[(k*qtnode + partpos[j]-1)];
-            //printf("Vizinho sorteado: %i\n",k);
-                       
+            //printf("Vizinho sorteado: %i\n",k);                       
             // se o nó não é rotulado vamos ajustar os potenciais
             if (slabel[k-1]==0)
             {
@@ -169,13 +170,11 @@ void mexFunction( int nlhs, mxArray *plhs[],
             potpart[j] += (pot[((partclass[j]-1) * qtnode + k-1)] - potpart[j]) * deltap;
             //printf("%0.4f\n",potpart[j]);
             
-            // se distância do nó alvo maior que distância do nó atual + 1
+            // se distância do nó alvo maior que distância do nó atual + (1 - peso)
             //printf("%i\n",(int) distnode[(int) (j*qtnode + k-1)]);
-            if (distnode[(j * qtnode + partpos[j]-1)]+1 < distnode[(j*qtnode + k-1)])
+            if (distnode[(j * qtnode + partpos[j]-1)] + (1/w) < distnode[(j*qtnode + k-1)])
                 // atualizar distância do nó alvo
-                distnode[(j*qtnode + k-1)] = distnode[(j*qtnode + partpos[j]-1)]+1;
-            
-            
+                distnode[(j*qtnode + k-1)] = distnode[(j*qtnode + partpos[j]-1)] + (1/w);                        
             // se não houve choque, atualizar posição da partícula            
             // primeiro temos que encontrar o valor máximo de potencial do nó alvo
             double maxpot = 0;

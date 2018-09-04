@@ -8,9 +8,9 @@
 % original. Traz de volta a tabela de distâncias individual. Inclui ExR, ExB, e ExG.
 % Exclui desvios padrões (v.35)
 % Incorpora mudanças de cnsslis9 (v36)
-% Weighted edges (v37)
+% Weighted edges and distance tables (v37)
 %
-% Usage: [owner, owner2, pot, owndeg] = strwalk35(img, imgslab, fw, k, disttype, valpha, pgrd, deltav, deltap, dexp, maxiter)
+% Usage: [owner, owner2, pot, owndeg] = strwalk35(img, imgslab, fw, k, sigma, disttype, valpha, pgrd, deltav, deltap, dexp, maxiter)
 % INPUT:
 % img       - Image to be segmented
 % imgslab   - Image with labeled/unlabeled pixel information
@@ -57,7 +57,7 @@ end
 if (nargin < 6) || isempty(disttype)
     disttype = 'euclidean'; % distância euclidiana não normalizada
 end
-if (nargin < 5) || isempty(disttype)
+if (nargin < 5) || isempty(sigma)
     sigma = 0.5;
 end
 if (nargin < 4) || isempty(k)
