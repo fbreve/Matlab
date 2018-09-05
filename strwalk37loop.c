@@ -172,9 +172,11 @@ void mexFunction( int nlhs, mxArray *plhs[],
             
             // se distância do nó alvo maior que distância do nó atual + (1 - peso)
             //printf("%i\n",(int) distnode[(int) (j*qtnode + k-1)]);
-            if (distnode[(j * qtnode + partpos[j]-1)] + (1/w) < distnode[(j*qtnode + k-1)])
+            //if (distnode[(j * qtnode + partpos[j]-1)] + (1/w) < distnode[(j*qtnode + k-1)])  => it got worse this way
+            if (distnode[(j * qtnode + partpos[j]-1)]+1 < distnode[(j*qtnode + k-1)])            
                 // atualizar distância do nó alvo
-                distnode[(j*qtnode + k-1)] = distnode[(j*qtnode + partpos[j]-1)] + (1/w);                        
+                // distnode[(j*qtnode + k-1)] = distnode[(j*qtnode + partpos[j]-1)] + (1/w);      
+                distnode[(j*qtnode + k-1)] = distnode[(j*qtnode + partpos[j]-1)]+1;
             // se não houve choque, atualizar posição da partícula            
             // primeiro temos que encontrar o valor máximo de potencial do nó alvo
             double maxpot = 0;

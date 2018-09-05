@@ -8,7 +8,7 @@
 % original. Traz de volta a tabela de distâncias individual. Inclui ExR, ExB, e ExG.
 % Exclui desvios padrões (v.35)
 % Incorpora mudanças de cnsslis9 (v36)
-% Weighted edges and distance tables (v37)
+% Weighted edges (v37)
 %
 % Usage: [owner, owner2, pot, owndeg] = strwalk35(img, imgslab, fw, k, sigma, disttype, valpha, pgrd, deltav, deltap, dexp, maxiter)
 % INPUT:
