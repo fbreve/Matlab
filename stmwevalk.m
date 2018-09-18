@@ -6,7 +6,7 @@
 % owner = strwalk output
 % wl = [0 - do not compute labeled items; 1 - compute labeled items]
 function [acc,k] = stmwevalk(label,slabel,owner,wl)
-    if (nargin < 4) || isempty(wl),
+    if (nargin < 4) || isempty(wl)
         wl = 0;
     end
     if wl==0

@@ -38,32 +38,32 @@
 % "Fuzzy community structure detection by particle competition and cooperation."
 % Soft Computing (Berlin. Print). , v.17, p.659 - 673, 2013.
 function [owner, pot, owndeg, distnode] = strwalk8k(X, slabel, k, disttype, valpha, pgrd, deltav, deltap, dexp, nclass, maxiter)
-    if (nargin < 11) || isempty(maxiter),
+    if (nargin < 11) || isempty(maxiter)
         maxiter = 500000; % número de iterações
     end
-    if (nargin < 10) || isempty(nclass),
+    if (nargin < 10) || isempty(nclass)
         nclass = max(slabel); % quantidade de classes
     end
-    if (nargin < 9) || isempty(dexp),
+    if (nargin < 9) || isempty(dexp)
         dexp = 2; % exponencial de probabilidade
     end
-    if (nargin < 8) || isempty(deltap),
+    if (nargin < 8) || isempty(deltap)
         deltap = 1.000; % controle de velocidade de aumento/decremento do potencial da partícula
     end
-    if (nargin < 7) || isempty(deltav),
+    if (nargin < 7) || isempty(deltav)
         deltav = 0.100; % controle de velocidade de aumento/decremento do potencial do vértice
     end
-    if (nargin < 6) || isempty(pgrd),
+    if (nargin < 6) || isempty(pgrd)
         pgrd = 0.500; % probabilidade de não explorar
     end
-    if (nargin < 5) || isempty(valpha),
+    if (nargin < 5) || isempty(valpha)
         valpha = 2000;
     end    
-    if (nargin < 4) || isempty(disttype),
+    if (nargin < 4) || isempty(disttype)
         disttype = 'euclidean'; % distância euclidiana não normalizada
     end    
     qtnode = size(X,1); % quantidade de nós
-    if (nargin < 3) || isempty(k),
+    if (nargin < 3) || isempty(k)
         k = round(qtnode*0.05); % quantidade de vizinhos mais próximos
     end    
     % constantes
