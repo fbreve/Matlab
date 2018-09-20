@@ -27,7 +27,7 @@
 % owner     - vector of classes assigned to each data item
 % pot
 
-function [owner, pot] = cnsslis9(img, imgslab, fw, k, sigma, disttype, valpha, maxiter)
+function [owner, pot] = cnsslis9stopcrit(img, imgslab, fw, k, sigma, disttype, valpha, maxiter, stopcrit)
 if (nargin < 8) || isempty(maxiter)
     maxiter = 500000; % número de iterações
 end
@@ -98,7 +98,7 @@ if k>0
     % ajustando potencial da classe respectiva do nó rotulado para máximo
     potval(sub2ind(size(potval),labelednodes,slabelval(labelednodes))) = 1;
     % calling the mex function
-    cnsslis9loop(maxiter,nnonlabeled,indnonlabeled,stopmax,potval,k,KNN,KNND);
+    cnsslis9stopcritloop(maxiter,nnonlabeled,indnonlabeled,stopmax,potval,k,KNN,KNND,stopcrit);
 
     clear KNN slabelval KNNND;
            

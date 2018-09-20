@@ -10,6 +10,8 @@ res/*
 ssl-book/*
 uci-datasets/*
 UCR_TS_Archive_2015/*
+dataset-interactive-algorithms/*
+gsc-1.2/*
 
 tabs_strwalk36-PATOLINO\.mat
 *.asv
