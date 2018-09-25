@@ -40,7 +40,7 @@ for i=i_start:1:50
     tab_time(i) = telapsed;
     imgres = own2img(owner,img,0);
     [err, acc, tpr, spc, jaccard, dice] = imgeval2(imgres, gt, imgslab);
-    tab_eval(i) = [err, acc, tpr, spc, jaccard, dice];
+    tab_eval(i,:) = [err, acc, tpr, spc, jaccard, dice];
     % imprime resultados na tela
     fprintf('ACC: %0.4f  TPR: %0.4f SPC: %0.4f Jaccard: %0.4f Dice: %0.4f Tempo: %8.2f  K: %4.0f\n',acc,tpr,spc,jaccard,dice,telapsed,k);
     % grave imagem

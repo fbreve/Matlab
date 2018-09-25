@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0051)http://olivier.chapelle.cc/ssl-book/benchmarks.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>Semi-Supervised Learning Book</title>
+</head>
+
+<body><h2><font color="#751A1A">The Benchmark Data Sets</font></h2>
+
+For each data set, we provide 12 splits (exception: only 10 splits for data set 8)
+into labeled points and remaining unlabeled points.
+We ensure that each split contains at least one point of each class.
+Apart from this, there is no bias in the labeling process.
+<p>
+
+The table contains individual files in matlab 5.0 format (.mat files).
+<br>
+
+<table cellspacing="1" cellpadding="3" border="">
+
+<tbody><tr>
+<td><b>Data Set</b></td>
+<td><b>Points</b></td>
+<td><b>Dimensions</b></td>
+<td><b>Splits with <i>l</i> Labeled Points</b></td>
+</tr>
+
+<tr>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=5,data.mat"><b>g241c</b> (set 5)</a></td>
+<td>1500</td>
+<td>241</td>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=5,splits,labeled=10.mat">l=10</a>, 
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=5,splits,labeled=100.mat">l=100</a></td>
+</tr>
+
+<tr>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=7,data.mat"><b>g241n</b> (set 7)</a></td>
+<td>1500</td>
+<td>241</td>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=7,splits,labeled=10.mat">l=10</a>, 
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=7,splits,labeled=100.mat">l=100</a></td>
+</tr>
+
+<tr>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=1,data.mat"><b>Digit1</b> (set 1)</a></td>
+<td>1500</td>
+<td>241</td>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=1,splits,labeled=10.mat">l=10</a>, 
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=1,splits,labeled=100.mat">l=100</a></td>
+</tr>
+
+<tr>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=2,data.mat"><b>USPS</b> (set 2)</a></td>
+<td>1500</td>
+<td>241</td>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=2,splits,labeled=10.mat">l=10</a>, 
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=2,splits,labeled=100.mat">l=100</a></td>
+</tr>
+
+<tr>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=6,data.mat"><b>COIL</b> (set 6)</a></td>
+<td>1500</td>
+<td>241</td>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=6,splits,labeled=10.mat">l=10</a>, 
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=6,splits,labeled=100.mat">l=100</a></td>
+</tr>
+
+<tr>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=3,data.mat">COIL<sub>2</sub> (set 3)</a></td>
+<td>1500</td>
+<td>241</td>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=3,splits,labeled=10.mat">l=10</a>, 
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=3,splits,labeled=100.mat">l=100</a>
+    (binary version of set 6)
+  </td>
+</tr>
+
+<tr>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=4,data.mat"><b>BCI</b> (set 4)</a></td>
+<td>400</td>
+<td>117</td>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=4,splits,labeled=10.mat">l=10</a>, 
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=4,splits,labeled=100.mat">l=100</a></td>
+</tr>
+
+<tr>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=9,data.mat"><b>Text</b> (set 9)</a></td>
+<td>1500</td>
+<td>11960</td>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=9,splits,labeled=10.mat">l=10</a>, 
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=9,splits,labeled=100.mat">l=100</a></td>
+</tr>
+
+<tr>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=8,data.mat"><b>SecStr</b> (set 8)</a></td>
+<td>83,679 +<br><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=8,data,unl.mat">1,189,472</a></td>
+<td>315</td>
+<td><a href="http://olivier.chapelle.cc/ssl-book/SSL,set=8,splits,labeled=100.mat">l=100</a>,
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=8,splits,labeled=1000.mat">l=1000</a>, 
+    <a href="http://olivier.chapelle.cc/ssl-book/SSL,set=8,splits,labeled=10000.mat">l=10000</a>
+    <br>(no splitting of extra unlabeled data);
+    <br><a href="http://olivier.chapelle.cc/ssl-book/loadSet8.m">matlab script</a> required
+    </td>
+</tr>
+
+</tbody></table>
+<br>
+</p><p>
+
+You can also download all data sets and splits
+(excluding the extra unlabeled data of set 8) at once as archive files,
+in <b>matlab</b> format: <a href="http://olivier.chapelle.cc/ssl-book/SSL,all-sets,matlab.tgz">gzipped TAR file</a>, <a href="http://olivier.chapelle.cc/ssl-book/SSL,all-sets,matlab.zip">ZIP file</a>;
+in <b>ascii</b> format:  <a href="http://olivier.chapelle.cc/ssl-book/SSL,all-sets,ascii.tgz">gzipped TAR file</a>,  <a href="http://olivier.chapelle.cc/ssl-book/SSL,all-sets,ascii.zip">ZIP file</a>
+(here, only the indices of the labeled examples are provided -- all other examples are unlabeled). 
+Data sets 8 and 9 are supplied in special formats: 
+in set 8, all attributes are categorical and have to be expanded
+into a sparse binary vector (21 bits per attribute; cf to the matlab script);
+in set 9, the data are very sparse, and only non-zero values are supplied
+as a list of "index:value" pairs.
+<br>
+</p><p>
+
+<b>X</b> = matrix of input data; each row corresponds to one example<br>
+<b>y</b> = the labels (either {0,1} or {-1,+1} for binary problems)<br>
+<b>idxLabs</b> = each row contains the indices of the labeled points for a given split<br>
+<b>idxUnls</b> = idem for the unlabeled points<br>
+(all indices are 1-based as in matlab, not 0-based as in C)<br>
+</p><p>
+
+</p><hr>
+<a href="http://olivier.chapelle.cc/ssl-book/index.html">Back to the SSL book main page</a>
+
+
+
+
+<script src="./Semi-Supervised Learning Book_files/58852.user.js"></script><div id="reinjecter" style="display: none;"></div></body></html>
