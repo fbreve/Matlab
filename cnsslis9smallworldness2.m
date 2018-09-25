@@ -44,8 +44,9 @@ end
 clear KNN;
 
 % analysis parameters
-Num_ER_repeats = 100;  % to estimate C and L numerically for E-R random graph
+%Num_ER_repeats = 100;  % to estimate C and L numerically for E-R random graph
 %Num_S_repeats = 1000; % to get P-value for S; min P = 0.001 for 1000 samples
+Num_ER_repeats = 20;
 
 FLAG_Cws = 1;
 FLAG_Ctransitive = 2;

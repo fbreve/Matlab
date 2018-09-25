@@ -42,5 +42,8 @@ for iE = 1:Nrepeats
         case 2
             Crand(iE) = clusttriang(ER);
     end    
-    %fprintf('Clustering Coefficient: %0.4f\n',Crand(iE))    
+    %fprintf('Clustering Coefficient: %0.4f\n',Crand(iE))
+    fprintf('.');
+end
+fprintf('\n');
 end

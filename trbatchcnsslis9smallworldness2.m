@@ -20,7 +20,7 @@ k=10;
 
 for i=1:1:50
     imgname = imgnames{i};
-    fprintf('Calculando small-world-ness da imagem %2.0f/50: ',i);
+    fprintf('Calculando small-world-ness da imagem %2.0f/50:',i);
     [img,imgslab,gt] = imgmsrcload(imgname);
     tstart = tic;
     [S,C,E] = cnsslis9smallworldness2(img);
