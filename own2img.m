@@ -1,5 +1,5 @@
-%Uso: own2img(owner,img,exhibitimg)
-%Obs: usar imsave para salvar a imagem gerada
+%Uso: own2img(owner,img,1) - exibe imagem
+%     imgres = own2img(owner,img,0); - não exibe imagem
 function imgres = own2img(owner,img,exhibitimg,imgslab)
 if (nargin < 3) || isempty(exhibitimg)
     exhibitimg = 1;

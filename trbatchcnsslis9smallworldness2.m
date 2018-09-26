@@ -7,7 +7,7 @@ imgnames = {'21077' '24077' '37073' '65019' '69020' '86016' ...
     'person8' 'scissors' 'sheep' 'stone1' 'stone2' 'teddy' 'tennis'};
 
 if exist('tab_eval','var')==0
-    tab_eval = zeros(50,6);   
+    tab_eval = zeros(50,3);   
 end
 if exist('tab_time','var')==0
     tab_time = zeros(50,1);
