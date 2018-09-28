@@ -6,7 +6,7 @@
 % S_ws - Cws 
 % S_trans - transitivity C (no. of triangles)
 % C and L are the mean clustering coefficient C and mean shortest path length L of A.
-function [S,C,E] = cnsslis9smallworldness2(img, fw, k, disttype)
+function [S,C,E,Crand_mean,Erand_mean] = cnsslis9smallworldness2(img, fw, k, disttype)
 if (nargin < 4) || isempty(disttype)
     disttype = 'euclidean'; % distância euclidiana não normalizada
 end
@@ -71,7 +71,9 @@ m = n*k; % I've changed to sum(k) for directed graphs (F.B.)
 %Lrand_mean = mean(Lrand(Lrand < inf));
 
 %[S_ws,C_ws,E_ws] = fb_small_world_ness2(A,mean(Erand),mean(Crand),FLAG_Cws);  % Using WS clustering coefficient
-[S,C,E] = fb_small_world_ness2(A,mean(Erand),mean(Crand),FLAG_Ctransitive);  %  Using transitive clustering coefficient
+Erand_mean = mean(Erand);
+Crand_mean = mean(Crand);
+[S,C,E] = fb_small_world_ness2(A,Erand_mean,Crand_mean,FLAG_Ctransitive);  %  Using transitive clustering coefficient
 
 end
 
