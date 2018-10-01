@@ -1,4 +1,4 @@
-% Complex Networks Semi-Supervised Learning Image Segmentation v5
+% Complex Networks Semi-Supervised Learning Image Segmentation v9
 % Trabalha na primeira fase com imagem redimensionada para um 1/9 do tamanho
 % original. Inclui ExR, ExB, e ExG. Exclui desvios padrões (v2)
 % Não inclui vizinhança recíproca (v3)
@@ -13,8 +13,11 @@
 % mistos para o rotulado predominante (v9)
 % Usage: [owner, pot] = cnsslis9(img, imgslab, fw, k, sigma, disttype, valpha, maxiter)
 % INPUT:
-% img       - Image to be segmented
-% imgslab   - Image with labeled/unlabeled pixel information
+% img       - Image to be segmented (24 bits, 3 channels - RGB)
+% imgslab   - Image with labeled/unlabeled pixel information (0 is reserved
+%             for ignored background, 64 - background class, 128 -
+%             unlabeled pixels, 255 - foreground class. For multiclass use
+%             [1~63; 65~127; 129~254] for other classes. (Obs: use only grayscale 8-bit indexed image)
 % fw        - vector of feature weights
 % k         - each node is connected to its k-neirest neighbors
 % disttype  - use 'euclidean', etc.
@@ -22,7 +25,7 @@
 % maxiter   - maximum amount of iterations
 % OUTPUT:
 % owner     - vector of classes assigned to each data item
-% pot     
+% pot   
 
 function [owner, pot, ph1_ttiter, ph2_ttiter] = cnsslis9complex(img, imgslab, fw, k, sigma, disttype, valpha, maxiter)
 if (nargin < 8) || isempty(maxiter)
@@ -41,21 +44,24 @@ if (nargin < 4) || isempty(k)
     k = 10; % quantidade de vizinhos mais próximos
 end
 if (nargin < 3) || isempty(fw)
-    fw = [1 1 0.5 0.5 0.5 0.5 0.5 0.5 0.5];
+    fw = ones(1,9);
 end
 % tratamento da entrada
 k = uint16(k);
 
-ph1_ttiter = 0;
-ph2_ttiter = 0;
-
 if k>0
     % reduzindo imagem
-    rs_img = imresize(img,1/3,'bilinear');
-    rs_imgslab = imresize(imgslab,1/3,'bilinear');
-    rs_imgslab(rs_imgslab<64 & rs_imgslab>0) = 64;
-    rs_imgslab(rs_imgslab<128 & rs_imgslab>64) = 64;
-    rs_imgslab(rs_imgslab>128) = 255;
+    rs_img = imresize(img,1/3,'bicubic');
+    otherlabels = [1:63 65:127 129:254];
+    if isempty(intersect(unique(imgslab),otherlabels)) % se há apenas duas classes
+        rs_imgslab = imresize(imgslab,1/3,'bilinear');
+        rs_imgslab(rs_imgslab<64 & rs_imgslab>0) = 64;
+        rs_imgslab(rs_imgslab<128 & rs_imgslab>64) = 64;
+        rs_imgslab(rs_imgslab>128) = 255;
+    else % mais de duas classes
+        rs_imgslab = imresize(imgslab,1/3,'nearest');
+    end      
+    
     [rs_dim,qtnode,X,slabel,nodeval,nclass] = getFeatures(rs_img,rs_imgslab,fw);
     
     % já estamos normalizando de qualquer forma
@@ -91,10 +97,11 @@ if k>0
     % ajustando potencial da classe respectiva do nó rotulado para máximo
     potval(sub2ind(size(potval),labelednodes,slabelval(labelednodes))) = 1;
     % variável para guardar máximo potencial mais alto médio
-    [potval, ph1_ttiter] = cnsslis5loopcomplex(maxiter,nnonlabeled,indnonlabeled,stopmax,potval,k,KNN,KNND);
+    ph1_ttiter = cnsslis9loopcomplex(maxiter,nnonlabeled,indnonlabeled,stopmax,potval,k,KNN,KNND);
     clear KNN slabelval KNNND;
            
-    pot = repmat([1 0],qtnode,1);
+    pot = zeros(qtnode,nclass);
+    pot(:,1) = 1; % nós de fundo serão associados à mesma classe da cor de índice 64.
     pot(indval,:)=potval;
     
     clear potval;
@@ -105,9 +112,9 @@ end
 % (antes de redimensionar é preciso passar para matriz de 3 dimensões e
 % depois voltar para o formato anterior)
 if k>0
-    pot = reshape(imresize(reshape(pot,rs_dim(1),rs_dim(2),2),[dim(1) dim(2)],'bilinear'),qtnode,2);
+    pot = reshape(imresize(reshape(pot,rs_dim(1),rs_dim(2),nclass),[dim(1) dim(2)],'bilinear'),qtnode,nclass);
 else
-    pot = repmat(0.5,qtnode,nclass);
+    pot = repmat(1/nclass,qtnode,nclass);
 end
 
 % encontrando nos rotulados
@@ -122,7 +129,7 @@ pot(sub2ind(size(pot),labelednodes,slabel(labelednodes))) = 1;
 if k>0 
     indefnodesb = max(pot,[],2) < 1; % vetor onde 1 é nó indefinido e 0 é definido    
 else
-    indefnodesb = nodeval;
+    indefnodesb = nodeval; % dessa forma todos os vetores de dominância ficam variáveis e a propagação ocorre entre todos os pixels. Por algum motivo isso funciona melhor na base da Microsoft.
 end
 indefnodes = uint32(find(indefnodesb)); % lista de nós indefinidos    
 indefnodesc = size(indefnodes,1); % contagem de nós indefinidos
@@ -183,7 +190,7 @@ if indefnodesc>0
     % variável para guardar máximo potencial mais alto médio
     % chamando o arquivo mex do strwalk25
     %disp('Parte 2: Propagação de rótulos...');
-    [pot,ph2_ttiter] = strwalk25loopcomplex(maxiter, npart, nclass, stopmax, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
+    ph2_ttiter = strwalk25loopcomplex(maxiter, npart, nclass, stopmax, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
     
     if k==0
         % zerando potenciais dos nós rotulados
@@ -231,14 +238,23 @@ clear exr exg exb;
 X(:,7:9) = squeeze(reshape(imgex,dim(1)*dim(2),1,3));
 X = zscore(X) .* repmat(fw,qtnode,1);
 % Converter imagem com rótulos em vetor de rótulos
-slabel = uint16(reshape(imgslab,dim(1)*dim(2),1));
+slabelraw = reshape(imgslab,dim(1)*dim(2),1);
 % montar vetor onde 0 é nó do fundo não considerado e 1 é nó válido
 nodeval = zeros(qtnode,1);
-nodeval(slabel~=0)=1;
+nodeval(slabelraw~=0)=1;
 % ajustar vetor de rótulos
-slabel(slabel==0)=1; % fundo não considerado
-slabel(slabel==64)=1;  % c/ rótulo - fundo
-slabel(slabel==255)=2; % c/ rótulo - objeto
-slabel(slabel==128)=0; % sem rótulo
-nclass = 2;
+slabel = zeros(qtnode,1,'uint16');
+slabel(slabelraw==0)=1; % fundo não considerado
+slabel(slabelraw==64)=1;  % c/ rótulo - fundo
+otherlabels = [1:63 65:127 129:254];    
+olfound = intersect(unique(slabelraw),otherlabels);
+if isempty(olfound) % se não outros rótulos, i.e., há apenas duas classes
+    nclass=2;
+else % se há mais rótulos
+    nclass=size(olfound,1)+2;
+    for i=1:nclass-2
+        slabel(slabelraw==olfound(i)) = i+1;
+    end
+end
+slabel(slabelraw==255)=nclass; % c/ rótulo - objeto
 end

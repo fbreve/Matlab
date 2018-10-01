@@ -18,17 +18,17 @@ for i=1:10
     y = imgeval(imgres, gt, imgslab);
     tab_err(i) = y;    
     imwrite(imgres,sprintf('res/imgcnsslis9complex3-k%i-%s-err%0.4f.png',k(i),getenv('computername'),y));
-    save(sprintf('tabs_cnsslis9complex3-%s',getenv('computername')),'tab_time','tab_ph1iter','tab_ph2iter','k','tab_err');
+    save(sprintf('res/tabs_cnsslis9complex3-%s',getenv('computername')),'tab_time','tab_ph1iter','tab_ph2iter','k','tab_err');
 end
 % teste de tempo
 fprintf('Iniciando avaliação do tempo.\n');
 for j=1:100   
     for i=1:10 
-        f = @() cnsslis9(rs_img, rs_imgslab, [], k(i));
+        f = @() cnsslis9(img, imgslab, [], k(i));
         tab_time(i,j)= timeit(f);
         fprintf('K: %i - Teste %i/100 - Tempo: %0.4f\n',k(i),j,tab_time(i,j));
     end
-    save(sprintf('tabs_cnsslis9complex3-%s',getenv('computername')),'tab_time','tab_ph1iter','tab_ph2iter','k','tab_err');
+    save(sprintf('res/tabs_cnsslis9complex3-%s',getenv('computername')),'tab_time','tab_ph1iter','tab_ph2iter','k','tab_err');
 end
 
 

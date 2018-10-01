@@ -53,7 +53,7 @@ k = uint16(k);
 if k>0
     % reduzindo imagem
     rs_img = imresize(img,1/3,'bicubic');
-    otherlabels = [1:63 65:127 129:254];    
+    otherlabels = [1:63 65:127 129:254];
     if isempty(intersect(unique(imgslab),otherlabels)) % se há apenas duas classes
         rs_imgslab = imresize(imgslab,1/3,'bilinear');
         rs_imgslab(rs_imgslab<64 & rs_imgslab>0) = 64;
