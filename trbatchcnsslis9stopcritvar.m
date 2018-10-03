@@ -6,7 +6,7 @@ imgnames = {'21077' '24077' '37073' '65019' '69020' '86016' ...
     'person1' 'person2' 'person3' 'person4' 'person5' 'person6' 'person7' ...
     'person8' 'scissors' 'sheep' 'stone1' 'stone2' 'teddy' 'tennis'};
 
-rep=100;
+rep=50;
 if exist('tab_y','var')==0
     tab_y = zeros(50,10,rep);
     tab_time = zeros(50,10,rep);
@@ -29,6 +29,6 @@ for h=1:rep
             % imprime resultados na tela
             fprintf('Erro: %0.4f  Tempo: %0.4f  StopCrit: %0.10f\n',tab_y(i,j),tab_time(i,j),stopcrit);
         end
-        save(sprintf('res/tabs_cnsslis9stopcrit-%s',getenv('computername')),'tab_y');
+        save(sprintf('res/tabs_cnsslis9stopcrit-%s',getenv('computername')),'tab_y','tab_time');
     end
 end
