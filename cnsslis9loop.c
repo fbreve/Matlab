@@ -1,12 +1,3 @@
-/*=================================================================
- *
- *ESCALARES (int): maxiter, nnonlabeled, stopmax
- *
- *VETORES: knns
- *
- *MATRIZES: potval, nlist
- *
-  *=================================================================*/
 #include <math.h>
 #include "mex.h"
 
@@ -15,7 +6,7 @@
 #define	maxiter_IN       prhs[0]
 #define	nnonlabeled_IN   prhs[1]
 #define indnonlabeled_IN prhs[2]
-#define	stopmax_IN       prhs[3]
+#define	omega_IN         prhs[3]
 #define	potval_IN        prhs[4]
 #define	k_IN             prhs[5]
 #define	nlist_IN         prhs[6]
@@ -25,11 +16,12 @@ void mexFunction( int nlhs, mxArray *plhs[],
 		  int nrhs, const mxArray*prhs[] )
      
 {    
-    int maxiter, nnonlabeled, stopmax; // escalares int
+    int maxiter, nnonlabeled; // escalares int
     unsigned short int k; // escalar de uint16       
     unsigned int *indnonlabeled, *nlist; // vetores de uint32
     double *potval, *ndist;  // matrizes de double
     int qtnode, nclass;
+    double omega;
     
     /* Check for proper number of arguments */
     
@@ -43,7 +35,7 @@ void mexFunction( int nlhs, mxArray *plhs[],
     maxiter = (int) mxGetScalar(maxiter_IN);
     nnonlabeled = (int) mxGetScalar(nnonlabeled_IN);
     indnonlabeled = (unsigned int *) mxGetData(indnonlabeled_IN);
-    stopmax = (int) mxGetScalar(stopmax_IN);   
+    omega = mxGetScalar(omega_IN);   
     k = (unsigned short int) mxGetScalar(k_IN);                
     nlist = (unsigned int *) mxGetData(nlist_IN);    
     potval = mxGetPr(potval_IN);
@@ -53,7 +45,6 @@ void mexFunction( int nlhs, mxArray *plhs[],
     nclass = (int) mxGetN(potval_IN);      
        
     double maxmmpot = 0;
-    int stopcnt = 0;    
     double *newpot = malloc(sizeof(double) * nnonlabeled * nclass);
     for(int i=0; i<maxiter; i++)
     {
@@ -115,20 +106,8 @@ void mexFunction( int nlhs, mxArray *plhs[],
             
             //printf("Iter: %i  Meanpot: %0.4f\n",i,mmpot);            
             // se da última maior média para a atual aumentou mais que 0.001
-            if (mmpot - maxmmpot > 0.001)
-            {                
-                // vamos atualizar maior média
-                maxmmpot = mmpot;
-                // e zerar o contador
-                stopcnt = 0;
-            }               
-            else
-            {
-                // incrementa o contador
-                stopcnt++;
-                // se chegou no limite, para
-                if (stopcnt > stopmax) break;
-            }
+            if (mmpot - maxmmpot > omega) maxmmpot = mmpot;   
+            else break;
         }             
     }  
     

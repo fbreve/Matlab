@@ -21,18 +21,18 @@
 % fw        - vector of feature weights
 % k         - each node is connected to its k-neirest neighbors
 % disttype  - use 'euclidean', etc.
-% valpha    - Default: 20 (lower it to stop earlier, accuracy may be lower)
+% omega     - Default: 0.001 (lower it to stop earlier, accuracy may be lower; increase to increase accuracy)
 % maxiter   - maximum amount of iterations
 % OUTPUT:
 % owner     - vector of classes assigned to each data item
 % pot
 
-function [owner, pot] = cnsslis9(img, imgslab, fw, k, sigma, disttype, valpha, maxiter)
+function [owner, pot] = cnsslis9(img, imgslab, fw, k, sigma, disttype, omega, maxiter)
 if (nargin < 8) || isempty(maxiter)
     maxiter = 500000; % número de iterações
 end
-if (nargin < 7) || isempty(valpha)
-    valpha = 2;
+if (nargin < 7) || isempty(omega)
+    omega = 0.001;
 end
 if (nargin < 6) || isempty(disttype)
     disttype = 'euclidean'; % distância euclidiana não normalizada
@@ -76,9 +76,7 @@ if k>0
     slabelval = slabel(indval); % rótulos dos pixels válidos (não são do fundo ignorado)    
     
     nnonlabeled = sum(slabelval==0); % quantidade de nós não rotulados
-    
-    stopmax = round((qtnodeval/nnonlabeled)*round(valpha*0.1)); % qtde de iterações para verificar convergência
-    
+         
     % lista de nós não rotulados
     indnonlabeled = uint32(find(slabelval==0));
     % lista de nós rotulados
@@ -98,7 +96,7 @@ if k>0
     % ajustando potencial da classe respectiva do nó rotulado para máximo
     potval(sub2ind(size(potval),labelednodes,slabelval(labelednodes))) = 1;
     % calling the mex function
-    cnsslis9loop(maxiter,nnonlabeled,indnonlabeled,stopmax,potval,k,KNN,KNND);
+    cnsslis9loop(maxiter,nnonlabeled,indnonlabeled,omega,potval,k,KNN,KNND);
 
     clear KNN slabelval KNNND;
            
@@ -188,11 +186,10 @@ if indefnodesc>0
     Ndist = exp((-Ndist.^2)./(2*sigma^2));
     % constantes
     npart = indefnodesc; % quantidade de nós ainda não rotulados
-    stopmax = round((qtnode/npart)*round(valpha*0.1)); % qtde de iterações para verificar convergência
     % variável para guardar máximo potencial mais alto médio
     % chamando o arquivo mex do strwalk25
     %disp('Parte 2: Propagação de rótulos...');
-    strwalk25loop(maxiter, npart, nclass, stopmax, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
+    strwalk25loop(maxiter, npart, nclass, omega, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
     
     if k==0
         % zerando potenciais dos nós rotulados
