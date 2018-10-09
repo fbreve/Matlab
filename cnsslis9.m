@@ -11,7 +11,9 @@
 % Uso de gaussiana para calcular pesos (v9)
 % Filtro bilinear para redimensionar tri-maps, aproximando em seguida os
 % mistos para o rotulado predominante (v9)
+%
 % Usage: [owner, pot] = cnsslis9(img, imgslab, fw, k, sigma, disttype, valpha, maxiter)
+%
 % INPUT:
 % img       - Image to be segmented (24 bits, 3 channels - RGB)
 % imgslab   - Image with labeled/unlabeled pixel information (0 is reserved
@@ -23,11 +25,15 @@
 % disttype  - use 'euclidean', etc.
 % omega     - Default: 0.001 (lower it to stop earlier, accuracy may be lower; increase to increase accuracy)
 % maxiter   - maximum amount of iterations
+%
 % OUTPUT:
 % owner     - vector of classes assigned to each data item
-% pot
+% pot       - continuos-output with pertinence of each data item to each
+%             class
+% tt1       - total iterations executed on phase 1
+% tt2       - total iterations executed on phase 2
 
-function [owner, pot] = cnsslis9(img, imgslab, fw, k, sigma, disttype, omega, maxiter)
+function [owner, pot, tt1, tt2] = cnsslis9(img, imgslab, fw, k, sigma, disttype, omega, maxiter)
 if (nargin < 8) || isempty(maxiter)
     maxiter = 500000; % número de iterações
 end
@@ -49,6 +55,8 @@ if (nargin < 3) || isempty(fw)
 end
 % tratamento da entrada
 k = uint16(k);
+tt1 = 0;
+tt2 = 0;
 
 if k>0
     % reduzindo imagem
@@ -96,7 +104,7 @@ if k>0
     % ajustando potencial da classe respectiva do nó rotulado para máximo
     potval(sub2ind(size(potval),labelednodes,slabelval(labelednodes))) = 1;
     % calling the mex function
-    cnsslis9loop(maxiter,nnonlabeled,indnonlabeled,omega,potval,k,KNN,KNND);
+    tt1 = cnsslis9loop(maxiter,nnonlabeled,indnonlabeled,omega,potval,k,KNN,KNND);
 
     clear KNN slabelval KNNND;
            
@@ -189,7 +197,7 @@ if indefnodesc>0
     % variável para guardar máximo potencial mais alto médio
     % chamando o arquivo mex do strwalk25
     %disp('Parte 2: Propagação de rótulos...');
-    strwalk25loop(maxiter, npart, nclass, omega, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
+    tt2 = cnsslis9loop2(maxiter, npart, nclass, omega, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
     
     if k==0
         % zerando potenciais dos nós rotulados

@@ -14,6 +14,10 @@
 #define ndist_IN        prhs[8]
 #define pot_IN          prhs[9]
 
+/* Output Arguments */
+
+#define ph2_ttiter_OUT  plhs[0]
+
 void mexFunction( int nlhs, mxArray *plhs[], 
 		  int nrhs, const mxArray*prhs[] )    
 {    
@@ -31,8 +35,8 @@ void mexFunction( int nlhs, mxArray *plhs[],
     
     if (nrhs != 10) { 
 	    mexErrMsgTxt("10 argumentos de entrada requeridos."); 
-    } else if (nlhs > 0) {
-	    mexErrMsgTxt("This function no longer has output arguments. Update your code."); 
+    } else if (nlhs > 1) {
+	    mexErrMsgTxt("Only 1 output argument allowed."); 
     }
     
     maxiter = (int) mxGetScalar(maxiter_IN);
@@ -63,7 +67,8 @@ void mexFunction( int nlhs, mxArray *plhs[],
     bool *labeled = malloc(sizeof(bool)*npart);
     for(int i=0; i<npart; i++) labeled[i]=false;
     int labeledc = 0;
-    for(int i=0; i<maxiter; i++)
+    int i;
+    for(i=0; i<maxiter; i++)
     {
         for(int j=0; j<npart; j++)
         {
@@ -111,6 +116,8 @@ void mexFunction( int nlhs, mxArray *plhs[],
     free(nc);
     free(newpot);
     free(labeled);
-    return;
     
+    ph2_ttiter_OUT = mxCreateDoubleScalar(i);
+    
+    return;    
 }

@@ -10,7 +10,7 @@ if exist('i_start','var')==0
 end
 k = 10:10:100;
 
-for i=1:10
+for i=i_start:10
     fprintf('Segmentando imagem com k=%i\n',k(i));
     % teste de quantidade de iterações
     tstart = tic;

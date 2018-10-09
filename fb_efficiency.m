@@ -9,7 +9,7 @@
 function E = fb_efficiency(A)
 n = size(A,1);
 G = digraph(A);  % this is for digraphs, for graphs use G = graph(A);
-D = distances(G);
+D = distances(G,'Method','unweighted');
 invD = 1./D;
 invD(invD==Inf)=0;
 suminvD = sum(invD(:));
