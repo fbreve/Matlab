@@ -1,3 +1,6 @@
+% Script to measure complexity on individual images with fixed sizes and
+% varying k
+%
 %gt = imread('i:\Users\Fabricio\Documents\Doutorado\Simulações\Resultados\Segmentação\cnsslis9\outras\IMG_5270-gt.png');
 %imgslab = imread('i:\Users\Fabricio\Documents\Doutorado\Simulações\Resultados\Segmentação\cnsslis9\outras\IMG_5270-scribble.png');
 %img = imread('i:\Users\Fabricio\Documents\Doutorado\Simulações\Resultados\Segmentação\cnsslis9\outras\IMG_5270.jpg');
@@ -9,7 +12,7 @@ tab_err = zeros(10,1);
 for i=1:10
     fprintf('Segmentando imagem com k=%i\n',k(i));
     % teste de quantidade de iterações
-    [owner,~,ph1_ttiter,ph2_ttiter] = cnsslis9complex(img, imgslab, [], k(i));
+    [owner,~,ph1_ttiter,ph2_ttiter] = cnsslis9(img, imgslab, [], k(i));
     fprintf('Total de iterações - Fase 1: %i - Fase 2: %i\n',ph1_ttiter,ph2_ttiter);
     tab_ph1iter(i) = ph1_ttiter;
     tab_ph2iter(i) = ph2_ttiter;

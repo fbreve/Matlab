@@ -1,3 +1,6 @@
+% Script to test different values of omega variable on the Microsoft
+% Grabcut Dataset
+
 imgnames = {'21077' '24077' '37073' '65019' '69020' '86016' ...
     '106024' '124084' '153077' '153093' '181079' '189080' '208001' ...
     '209070'  '227092' '271008' '304074' '326038'  '376043' '388016' ...
@@ -13,21 +16,21 @@ if exist('tab_y','var')==0
 end
 
 for h=1:rep
-    fprintf('Reptição %i/%i\n',h,rep);
+    fprintf('Repetição %i/%i\n',h,rep);
     for i=1:50
         imgname = imgnames{i};
         fprintf('Segmentando imagem %i/50: %s\n',i,imgname);
         [img,imgslab,gt] = imgmsrcload(imgname);
         for j=1:10
-            stopcrit = 10^-j;
+            omega = 10^-j;
             tstart = tic;
-            owner = cnsslis9stopcrit(img, imgslab, [], [], [], [], [], [], stopcrit);
+            owner = cnsslis9(img, imgslab, [], [], [], [], omega);
             telapsed = toc(tstart);
             imgres = own2img(owner,img,0);
             tab_y(i,j,h) = imgeval(imgres, gt, imgslab);
             tab_time(i,j,h) = telapsed;
             % imprime resultados na tela
-            fprintf('Erro: %0.4f  Tempo: %0.4f  StopCrit: %0.10f\n',tab_y(i,j),tab_time(i,j),stopcrit);
+            fprintf('Erro: %0.4f  Tempo: %0.4f  Omega: %0.10f\n',tab_y(i,j),tab_time(i,j),omega);
         end
         save(sprintf('res/tabs_cnsslis9stopcrit-%s',getenv('computername')),'tab_y','tab_time');
     end

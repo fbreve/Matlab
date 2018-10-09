@@ -12,7 +12,7 @@
 % Filtro bilinear para redimensionar tri-maps, aproximando em seguida os
 % mistos para o rotulado predominante (v9)
 %
-% Usage: [owner, pot] = cnsslis9(img, imgslab, fw, k, sigma, disttype, valpha, maxiter)
+% Usage: [owner, pot] = cnsslis9(img, imgslab, fw, k, sigma, disttype, omega, maxiter)
 %
 % INPUT:
 % img       - Image to be segmented (24 bits, 3 channels - RGB)
