@@ -23,5 +23,5 @@ for i=1:50
         % imprime resultados na tela
         fprintf('Erro: %0.4f  Sigma: %0.4f\n',tab_y(i,j),sigma);        
     end
-    save(sprintf('tabs_cnsslis9sigmavarkfix-%s',getenv('computername')),'tab_y');
+    save(sprintf('res\tabs_cnsslis9sigmavarkfix-%s',getenv('computername')),'tab_y');
 end

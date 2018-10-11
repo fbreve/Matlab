@@ -1,3 +1,6 @@
+% script to optimize k on all images from the Microsoft Grabcut Dataset
+% 1 <= k <= 2000
+
 imgnames = {'21077' '24077' '37073' '65019' '69020' '86016' ...
     '106024' '124084' '153077' '153093' '181079' '189080' '208001' ...
     '209070'  '227092' '271008' '304074' '326038'  '376043' '388016' ...
@@ -46,5 +49,5 @@ for i=i_start:1:50
     % grave imagem
     imwrite(imgres,sprintf('res/imgcnsslis9-%s-%s-err%0.4f-k%i.png',imgname,getenv('computername'),y,k));
     dlmwrite(sprintf('res/imgcnsslis9-%s-%s-err%0.4f-k%i.txt',imgname,getenv('computername'),y,k),[y telapsed k]);
-    save(sprintf('tabs_cnsslis9-%s',getenv('computername')),'tab_k','tab_y','tab_time');
-end;
+    save(sprintf('res/tabs_cnsslis9-%s',getenv('computername')),'tab_k','tab_y','tab_time');
+end
