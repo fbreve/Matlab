@@ -15,7 +15,7 @@ for i=1:10
     rs_gt = imresize(gt,sqrt(i/10),'nearest');
     fprintf('Tratando imagem com %i%% do tamanho original\n',i/10*100);    
     % teste de quantidade de iterações
-    [owner,~,ph1_ttiter,ph2_ttiter] = cnsslis9(rs_img, rs_imgslab, [], k);
+    [owner,~,ph1_ttiter,ph2_ttiter] = cnsslis9(rs_img, rs_imgslab, fw, k);
     fprintf('Total de iterações - Fase 1: %i - Fase 2: %i\n',ph1_ttiter,ph2_ttiter);
     tab_ph1iter(i) = ph1_ttiter;
     tab_ph2iter(i) = ph2_ttiter;
@@ -34,7 +34,7 @@ for j=1:100
         rs_img = imresize(img,sqrt(i/10),'bicubic');
         rs_imgslab = imresize(imgslab,sqrt(i/10),'nearest');
         rs_gt = imresize(gt,sqrt(i/10),'nearest');    
-        f = @() cnsslis9(rs_img, rs_imgslab, [], k);
+        f = @() cnsslis9(rs_img, rs_imgslab, fw, k);
         tab_time(i,j)= timeit(f);
         fprintf('Imagem com %i%% do tamanho original - Teste %i/100 - Tempo: %0.4f\n',i/10*100,j,tab_time(i,j));
     end

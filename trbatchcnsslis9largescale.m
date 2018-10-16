@@ -21,7 +21,7 @@ for j=i_start:10
         rs_imgslab = imresize(imgslab,sqrt(i),'nearest');
         rs_gt = imresize(gt,sqrt(i),'nearest');
         if j==1
-            fprintf('Tratando imagem com %i vezes o tamanho original\n',i);
+            fprintf('Tratando imagem com %i vez(es) o tamanho original\n',i);
             % teste de quantidade de iterações
             tstart = tic;
             [owner,~,ph1_ttiter,ph2_ttiter] = cnsslis9(rs_img, rs_imgslab, [], k);
@@ -39,7 +39,7 @@ for j=i_start:10
             tstart = tic;
             cnsslis9(rs_img, rs_imgslab, [], k);
             tab_time(i,j) = toc(tstart);
-            fprintf('Imagem com %i vezes o tamanho original - Teste %i/10 - Tempo: %0.4f\n',i,j,tab_time(i,j));            
+            fprintf('Imagem com %i vez(es) o tamanho original - Teste %i/10 - Tempo: %0.4f\n',i,j,tab_time(i,j));
         end
         save(sprintf('res/tabs_cnsslis9largescale-%s',getenv('computername')),'tab_time','tab_ph1iter','tab_ph2iter','tab_err');
     end
