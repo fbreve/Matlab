@@ -1,4 +1,4 @@
-% Complex Networks Semi-Supervised Learning Image Segmentation v5
+% Complex Networks Semi-Supervised Learning Image Segmentation v9
 % Trabalha na primeira fase com imagem redimensionada para um 1/9 do tamanho
 % original. Inclui ExR, ExB, e ExG. Exclui desvios padrões (v2)
 % Não inclui vizinhança recíproca (v3)
@@ -11,8 +11,10 @@
 % Uso de gaussiana para calcular pesos (v9)
 % Filtro bilinear para redimensionar tri-maps, aproximando em seguida os
 % mistos para o rotulado predominante (v9)
-% Cálculo automático do sigma (v10)
-% Usage: [owner, pot] = cnsslis9(img, imgslab, fw, k, disttype, valpha, maxiter)
+% Sigma calculado automaticamente (v10)
+%
+% Usage: [owner, pot, ti1, ti2] = cnsslis10(img, imgslab, fw, k, disttype, omega, maxiter)
+%
 % INPUT:
 % img       - Image to be segmented (24 bits, 3 channels - RGB)
 % imgslab   - Image with labeled/unlabeled pixel information (0 is reserved
@@ -22,18 +24,22 @@
 % fw        - vector of feature weights
 % k         - each node is connected to its k-neirest neighbors
 % disttype  - use 'euclidean', etc.
-% valpha    - Default: 20 (lower it to stop earlier, accuracy may be lower)
+% omega     - Default: 0.001 (lower it to stop earlier, accuracy may be lower; increase to increase accuracy)
 % maxiter   - maximum amount of iterations
+%
 % OUTPUT:
 % owner     - vector of classes assigned to each data item
-% pot
+% pot       - continuos-output with pertinence of each data item to each
+%             class
+% ti1       - total iterations executed on phase 1
+% ti2       - total iterations executed on phase 2
 
-function [owner, pot] = cnsslis10(img, imgslab, fw, k, disttype, valpha, maxiter)
+function [owner, pot, ti1, ti2] = cnsslis10(img, imgslab, fw, k, disttype, omega, maxiter)
 if (nargin < 7) || isempty(maxiter)
     maxiter = 500000; % número de iterações
 end
-if (nargin < 6) || isempty(valpha)
-    valpha = 2;
+if (nargin < 6) || isempty(omega)
+    omega = 0.0001;
 end
 if (nargin < 5) || isempty(disttype)
     disttype = 'euclidean'; % distância euclidiana não normalizada
@@ -42,15 +48,18 @@ if (nargin < 4) || isempty(k)
     k = 10; % quantidade de vizinhos mais próximos
 end
 if (nargin < 3) || isempty(fw)
-    fw = [1 1 0.5 0.5 0.5 0.5 0.5 0.5 0.5];
+    fw = ones(1,9);
+    %fw = [1 1 0.5 0.5 0.5 0.5 0.5 0.5 0.5];
 end
 % tratamento da entrada
 k = uint16(k);
+ti1 = 0;
+ti2 = 0;
 
 if k>0
     % reduzindo imagem
     rs_img = imresize(img,1/3,'bicubic');
-    otherlabels = [1:63 65:127 129:254];    
+    otherlabels = [1:63 65:127 129:254];
     if isempty(intersect(unique(imgslab),otherlabels)) % se há apenas duas classes
         rs_imgslab = imresize(imgslab,1/3,'bilinear');
         rs_imgslab(rs_imgslab<64 & rs_imgslab>0) = 64;
@@ -73,9 +82,7 @@ if k>0
     slabelval = slabel(indval); % rótulos dos pixels válidos (não são do fundo ignorado)    
     
     nnonlabeled = sum(slabelval==0); % quantidade de nós não rotulados
-    
-    stopmax = round((qtnodeval/nnonlabeled)*round(valpha*0.1)); % qtde de iterações para verificar convergência
-    
+         
     % lista de nós não rotulados
     indnonlabeled = uint32(find(slabelval==0));
     % lista de nós rotulados
@@ -87,16 +94,17 @@ if k>0
     clear XVal;
     KNN = KNN(:,2:end); % eliminando o elemento como vizinho de si mesmo
     KNND = KNND(:,2:end); 
-    sigma = mean(max(KNND,[],2))/3;    
-    KNND = exp(-(KNND.^2)./(2*sigma^2));
+    sigma = mean(max(KNND,[],2));
+    %sigma = sqrt(mean(KNND(:)));
+    KNND = exp((-KNND.^2)./(2*sigma^2));
     % ajustando todas as distâncias na máxima possível
     potval = repmat(1/nclass,qtnodeval,nclass);   
     % zerando potenciais dos nós rotulados
     potval(labelednodes,:) = 0;
     % ajustando potencial da classe respectiva do nó rotulado para máximo
     potval(sub2ind(size(potval),labelednodes,slabelval(labelednodes))) = 1;
-    % variável para guardar máximo potencial mais alto médio
-    potval = cnsslis9loop(maxiter,nnonlabeled,indnonlabeled,stopmax,potval,k,KNN,KNND);
+    % calling the mex function
+    ti1 = cnsslis9loop(maxiter,nnonlabeled,indnonlabeled,omega,potval,k,KNN,KNND);
 
     clear KNN slabelval KNNND;
            
@@ -129,7 +137,7 @@ pot(sub2ind(size(pot),labelednodes,slabel(labelednodes))) = 1;
 if k>0 
     indefnodesb = max(pot,[],2) < 1; % vetor onde 1 é nó indefinido e 0 é definido    
 else
-    indefnodesb = nodeval;
+    indefnodesb = nodeval; % dessa forma todos os vetores de dominância ficam variáveis e a propagação ocorre entre todos os pixels. Por algum motivo isso funciona melhor na base da Microsoft.
 end
 indefnodes = uint32(find(indefnodesb)); % lista de nós indefinidos    
 indefnodesc = size(indefnodes,1); % contagem de nós indefinidos
@@ -183,15 +191,13 @@ if indefnodesc>0
     end
     clear X;
     % aplicando Gaussiana nas distâncias
-    sigma = mean(max(Ndist(indefnodes,:),[],2))/3;
-    Ndist = exp(-(Ndist.^2)./(2*sigma^2));
+    Ndist = exp((-Ndist.^2)./(2*sigma^2));
     % constantes
     npart = indefnodesc; % quantidade de nós ainda não rotulados
-    stopmax = round((qtnode/npart)*round(valpha*0.1)); % qtde de iterações para verificar convergência
     % variável para guardar máximo potencial mais alto médio
     % chamando o arquivo mex do strwalk25
     %disp('Parte 2: Propagação de rótulos...');
-    pot = strwalk25loop(maxiter, npart, nclass, stopmax, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
+    ti2 = cnsslis9loop2(maxiter, npart, nclass, omega, indefnodes, slabel, Nsize, Nlist, Ndist, pot);
     
     if k==0
         % zerando potenciais dos nós rotulados
@@ -253,7 +259,7 @@ if isempty(olfound) % se não outros rótulos, i.e., há apenas duas classes
     nclass=2;
 else % se há mais rótulos
     nclass=size(olfound,1)+2;
-    for i=1:nclass-2;
+    for i=1:nclass-2
         slabel(slabelraw==olfound(i)) = i+1;
     end
 end
