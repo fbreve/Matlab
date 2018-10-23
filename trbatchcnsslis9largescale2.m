@@ -15,20 +15,20 @@ for j=i_start:10
             fprintf('Tratando imagem com k=%4.0f\n',k);
             % teste de quantidade de iterações
             tstart = tic;
-            [owner,~,ph1_ttiter,ph2_ttiter] = cnsslis9(rs_img, rs_imgslab, [], k);
+            [owner,~,ph1_ttiter,ph2_ttiter] = cnsslis9(img, imgslab, [], k);
             telapsed = toc(tstart);
             fprintf('Total de iterações - Fase 1: %i - Fase 2: %i - Tempo: %0.2f\n',ph1_ttiter,ph2_ttiter,telapsed);
             tab_ph1iter(i) = ph1_ttiter;
             tab_ph2iter(i) = ph2_ttiter;
             tab_time(i,1) = telapsed;
             % guardar imagem ótima
-            imgres = own2img(owner,rs_img,0);
-            y = imgeval(imgres, rs_gt, rs_imgslab);
+            imgres = own2img(owner,img,0);
+            y = imgeval(imgres, gt, imgslab);
             tab_err(i) = y;
             imwrite(imgres,sprintf('res/imgcnsslis9largescale-%ix-%s.png',i,getenv('computername')));
         else
             tstart = tic;
-            cnsslis9(rs_img, rs_imgslab, [], k);
+            cnsslis9(img, imgslab, [], k);
             tab_time(i,j) = toc(tstart);
             fprintf('Imagem com k=%4.0f - Teste %i/10 - Tempo: %0.4f\n',k,j,tab_time(i,j));
         end
