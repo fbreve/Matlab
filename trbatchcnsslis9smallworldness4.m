@@ -1,16 +1,16 @@
 % k de 10 a 100
 if exist('tab_eval','var')==0
-    tab_eval = zeros(10,5);   
+    tab_eval = zeros(25,5);
 end
 if exist('tab_time','var')==0
-    tab_time = zeros(10,1);
+    tab_time = zeros(25,1);
 end
 if exist('i_start','var')==0
     i_start = 1;
 end
-k = 10:10:100;
+k = 10:10:250;
 
-for i=i_start:10
+for i=i_start:25
     fprintf('Segmentando imagem com k=%i\n',k(i));
     % teste de quantidade de iterações
     tstart = tic;

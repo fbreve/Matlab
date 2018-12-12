@@ -1,15 +1,15 @@
 %gt = imread('i:\Users\Fabricio\Documents\Doutorado\Simulações\Resultados\Segmentação\cnsslis9\outras\IMG_5270-gt.png');
 %imgslab = imread('i:\Users\Fabricio\Documents\Doutorado\Simulações\Resultados\Segmentação\cnsslis9\outras\IMG_5270-scribble.png');
 %img = imread('i:\Users\Fabricio\Documents\Doutorado\Simulações\Resultados\Segmentação\cnsslis9\outras\IMG_5270.jpg');
-tab_time = zeros(10,10);
-tab_ph1iter = zeros(10,1);
-tab_ph2iter = zeros(10,1);
-tab_err = zeros(10,1);
+tab_time = zeros(25,10);
+tab_ph1iter = zeros(25,1);
+tab_ph2iter = zeros(25,1);
+tab_err = zeros(25,1);
 if exist('i_start','var')==0
     i_start = 1;
 end
 for j=i_start:10
-    for i=1:10
+    for i=1:25
         k = i*10;
         if j==1
             fprintf('Tratando imagem com k=%4.0f\n',k);
