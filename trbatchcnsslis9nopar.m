@@ -33,5 +33,5 @@ for i=1:1:50
     % grave imagem
     imwrite(imgres,sprintf('res/imgcnsslis9nopar-%s-%s-err%0.4f.png',imgname,getenv('computername'),y));
     dlmwrite(sprintf('res/imgcnsslis9nopar-%s-%s-err%0.4f.txt',imgname,getenv('computername'),y),[y telapsed k]);
-    save(sprintf('tabs_cnsslis9nopar-%s',getenv('computername')),'tab_y','tab_time');
+    save(sprintf('res/tabs_cnsslis9nopar-%s',getenv('computername')),'tab_y','tab_time');
 end
