@@ -1,7 +1,7 @@
 /*=================================================================
  *
  *ESCALARES (int): maxiter, npart, nclass, stopmax
- *ESCALARES (double): pdet, dexp, deltav, deltap
+ *ESCALARES (double): pgrd, dexp, deltav, deltap
  *
  *VETORES: partpos, partclass, potpart, slabel, nsize
  *
@@ -9,9 +9,10 @@
  *
  *RETORNO: pot
  *=================================================================*/
-/* $Revision: 1.10.6.6 $ */
 #include <math.h>
 #include "mex.h"
+/* to avoid the warning on rand_s when compiling with MinGW */
+extern errno_t rand_s (unsigned int *randomValue);
 
 /* Input Arguments */
 
@@ -19,7 +20,7 @@
 #define	npart_IN        prhs[1]
 #define	nclass_IN       prhs[2]
 #define	stopmax_IN      prhs[3]
-#define	pdet_IN         prhs[4]
+#define	pgrd_IN         prhs[4]
 #define	dexp_IN         prhs[5]
 #define	deltav_IN       prhs[6]
 #define	deltap_IN       prhs[7]
@@ -33,36 +34,51 @@
 #define nlist_IN        prhs[15]
 #define pot_IN          prhs[16]
 
-
-/* Output Arguments */
-
-#define	pot_OUT     	plhs[0]
-
-static void strwalk20loop(
-            int maxiter, 
-            int npart, 
-            int nclass, 
-            int stopmax,
-            double pdet,
-            double dexp,
-            double deltav,
-            double deltap,
-            double potmin,
-            double partpos[],
-            double partclass[],
-            double potpart[],
-            double slabel[],
-            double nsize[],
-            double distnode[],
-            double nlist[],
-            double pot[],
-            int qtnode,
-            int neibmax
-            //double	yp[],
-		   //double	*t,
- 		   //double	y[]
-		   )
+void mexFunction( int nlhs, mxArray *plhs[],
+        int nrhs, const mxArray*prhs[] )
 {
+    
+    int maxiter, npart, nclass, stopmax; // escalares int
+    double pgrd, dexp, deltav, deltap, potmin;  // escalares double
+    unsigned int *partpos; // vetores de uint32
+    unsigned short int *nsize; // vetores de uint16
+    unsigned short int *slabel, *partclass; // vetores de int16
+    double *potpart; // vetor de double
+    unsigned int *nlist; // matrizes de int
+    unsigned char *distnode;
+    double *pot;  // matrizes de double
+    int qtnode, neibmax;
+    
+    /* Check for proper number of arguments */
+    
+    
+    if (nrhs != 17) {
+        mexErrMsgTxt("Exactly 17 input arguments are required.");
+    } else if (nlhs > 0) {
+        mexErrMsgTxt("This function does not have output arguments.");
+    }
+    
+    maxiter = (int) mxGetScalar(maxiter_IN);
+    npart = (int) mxGetScalar(npart_IN);
+    nclass = (int) mxGetScalar(nclass_IN);
+    stopmax = (int) mxGetScalar(stopmax_IN);
+    pgrd = mxGetScalar(pgrd_IN);
+    dexp = mxGetScalar(dexp_IN);
+    deltav = mxGetScalar(deltav_IN);
+    deltap = mxGetScalar(deltap_IN);
+    potmin = mxGetScalar(potmin_IN);
+    partpos = (unsigned int *) mxGetData(partpos_IN);
+    partclass = (unsigned short int *) mxGetData(partclass_IN);
+    potpart = mxGetPr(potpart_IN);
+    slabel = (unsigned short int *) mxGetData(slabel_IN);
+    nsize = (unsigned short int *) mxGetData(nsize_IN);
+    distnode = (unsigned char *) mxGetData(distnode_IN);
+    nlist = (unsigned int *) mxGetData(nlist_IN);
+    pot = mxGetPr(pot_IN);
+    
+    qtnode = (int) mxGetM(slabel_IN);
+    neibmax = (int) mxGetN(nlist_IN);  // quantidade máxima de vizinhos que um nó tem
+    
     // non-Windows users should probably use /dev/random or /dev/urandom instead of rand_s
     unsigned int seed;
     errno_t err;
@@ -71,46 +87,49 @@ static void strwalk20loop(
     srand(seed);
     double maxmmpot = 0;
     int stopcnt = 0;
-    double *prob = malloc(sizeof(double)*neibmax); // vetor de probabilidades de visitar vizinho    
+    double *prob = malloc(sizeof(double)*neibmax); // vetor de probabilidades de visitar vizinho
     for(int i=0; i<maxiter; i++)
     {
         for(int j=0; j<npart; j++)
         {
+            
             double r = ((double) rand()) / RAND_MAX;
             double probsum = 0;
+            int greedymov;
             //printf("%0.4f\n",r);
-            if (r < pdet) // movimento guloso
+            if (r < pgrd) // movimento guloso
             {
-                //printf("movimento guloso\n");                
-                for(int i2=0; i2< (int) nsize[(int) partpos[j]-1]; i2++)
+                //printf("movimento guloso\n");
+                for(int i2=0; i2<nsize[partpos[j]-1]; i2++)
                 {
-                    prob[i2] = 0.0001 + pot[(int) ((partclass[j]-1)*qtnode + nlist[(int)(qtnode * i2 + partpos[j]-1)]-1)] * (1 / pow(1+distnode[(int) (j * qtnode + nlist[(int)(qtnode * i2 + partpos[j]-1)]-1)],dexp));
+                    prob[i2] = DBL_MIN + pot[((partclass[j]-1)*qtnode + nlist[(qtnode * i2 + partpos[j]-1)]-1)] * (1 / pow(1+distnode[(j * qtnode + nlist[(qtnode * i2 + partpos[j]-1)]-1)],dexp));
                     probsum += prob[i2];
                     //printf("%0.10f\n",prob[i2]);
-                }               
+                }
             }
-            else // movimento aleatório        
+            else // movimento aleatório
             {
-                //printf("movimento aleatório\n");                
-                for(int i2=0; i2< (int) nsize[(int) partpos[j]-1]; i2++) prob[i2] = 1;
-                probsum = nsize[(int) partpos[j]-1];                                 
+                //printf("movimento aleatório\n");
+                for(int i2=0; i2<nsize[partpos[j]-1]; i2++) prob[i2] = 1;
+                probsum = nsize[partpos[j]-1];
             }
             // vamos encontrar o nó sorteado
             r = ((double) rand()) * probsum / RAND_MAX;
-            //printf("ProbSum: %0.4f\n",probsum);           
+            //printf("ProbSum: %0.4f\n",probsum);
             //printf("r:       %0.4f\n",r);
             //printf("%0.4f  %0.4f  %i  %i   %i\n", probsum,r,(int) nsize[(int) partpos[j]-1],(int) partpos[j]-1,j);
             int k=0;
-            while(prob[k]<=r && k < nsize[(int) partpos[j]-1]-1)
+            while(prob[k]<=r && k < nsize[partpos[j]-1]-1)
             {
                 r -= prob[k];
                 k++;
-            }            
+            }
             
             //printf("K Sorteado: %i de %i\n",k,(int) nsize[(int) partpos[j]-1]);
             // convertendo o índice de probabilidade sorteado no índice do nó sorteado
-            k = (int) nlist[(int) (k*qtnode + partpos[j]-1)];
+            k = nlist[(k*qtnode + partpos[j]-1)];
             //printf("Vizinho sorteado: %i\n",k);
+            
             
             // valor a ser retirado de cada potencial de outras classes
             double deltapotpartind = potpart[j] * (deltav/(nclass-1));
@@ -119,39 +138,40 @@ static void strwalk20loop(
             for(int i2=0; i2<nclass; i2++)
             {
                 if (i2==partclass[j]-1) continue; // não fazer para a classe da partícula
-                pot[(int) (i2*qtnode + k-1)] -= deltapotpartind;
+                pot[(i2*qtnode + k-1)] -= deltapotpartind;
                 // se o potencial ficou abaixo de zero
                 if(pot[(int) (i2*qtnode + k-1)]<0)
                 {
                     // tira o que passou abaixo de zero do deltapotpart
-                    deltapotpart += pot[(int) (i2*qtnode + k-1)];
+                    deltapotpart += pot[(i2*qtnode + k-1)];
                     // e zera o potencial que estava abaixo de zero
-                    pot[(int) (i2*qtnode + k-1)] = 0;
+                    pot[(i2*qtnode + k-1)] = 0;
                 }
             }
             // agora acrescenta o deltapotpart no potencial da classe da partícula
-            pot[(int) ((partclass[j]-1) * qtnode + k-1)] += deltapotpart;
-
+            pot[((partclass[j]-1) * qtnode + k-1)] += deltapotpart;
+            
+            
             // atribui novo potencial para partícula
-            potpart[j] += (pot[(int) ((partclass[j]-1) * qtnode + k-1)] - potpart[j]) * deltap;
+            potpart[j] += (pot[((partclass[j]-1) * qtnode + k-1)] - potpart[j]) * deltap;
             //printf("%0.4f\n",potpart[j]);
             
             // se distância do nó alvo maior que distância do nó atual + 1
             //printf("%i\n",(int) distnode[(int) (j*qtnode + k-1)]);
-            if (distnode[(int) (j * qtnode + partpos[j]-1)]+1 < distnode[(int) (j*qtnode + k-1)])
+            if (distnode[(j * qtnode + partpos[j]-1)]+1 < distnode[(j*qtnode + k-1)])
                 // atualizar distância do nó alvo
-                distnode[(int) (j*qtnode + k-1)] = distnode[(int) (j*qtnode + partpos[j]-1)]+1;
+                distnode[(j*qtnode + k-1)] = distnode[(j*qtnode + partpos[j]-1)]+1;
             
             
-            // se não houve choque, atualizar posição da partícula            
+            // se não houve choque, atualizar posição da partícula
             // primeiro temos que encontrar o valor máximo de potencial do nó alvo
             double maxpot = 0;
             for(int i2=0; i2<nclass; i2++)
-                if(pot[(int) (i2 * qtnode + k-1)] > maxpot)
-                    maxpot = pot[(int) (i2 * qtnode + k-1)];
+                if(pot[(i2 * qtnode + k-1)] > maxpot)
+                    maxpot = pot[(i2 * qtnode + k-1)];
             
             // se o valor máximo for o da classe da partícula, a partícula vai para o nó alvo
-            if (pot[(int) ((partclass[j]-1) * qtnode + k-1)] >= maxpot)
+            if (pot[((partclass[j]-1) * qtnode + k-1)] >= maxpot)
                 partpos[j] = k;
         }
         // vamos testar convergência
@@ -162,7 +182,7 @@ static void strwalk20loop(
             {
                 double mpot=0;
                 for(int i3=0; i3<nclass; i3++)
-                    if(pot[i3*qtnode + i2]>mpot) mpot = pot[i3*qtnode + i2];                
+                    if(pot[i3*qtnode + i2]>mpot) mpot = pot[i3*qtnode + i2];
                 mmpot += mpot;
             }
             mmpot /= qtnode;
@@ -171,65 +191,16 @@ static void strwalk20loop(
             {
                 maxmmpot = mmpot;
                 stopcnt = 0;
-            }               
+            }
             else
             {
                 stopcnt++;
                 if (stopcnt > stopmax) break;
             }
-        }       
-    }  
-  
-    free(prob);
-    return;
-}
-
-void mexFunction( int nlhs, mxArray *plhs[], 
-		  int nrhs, const mxArray*prhs[] )
-     
-{ 
-   
-    int maxiter, npart, nclass, stopmax; // escalares int
-    double pdet, dexp, deltav, deltap, potmin;  // escalares double
-    double *partpos, *partclass, *potpart, *slabel, *nsize;  // vetores de int
-    double *distnode, *nlist; // matrizes de int
-    double *pot;  // matrizes de double
-    int qtnode, neibmax;
-    
-    /* Check for proper number of arguments */
-    
-    
-    if (nrhs != 17) { 
-	    mexErrMsgTxt("17 argumentos de entrada requeridos."); 
-    } else if (nlhs > 1) {
-	    mexErrMsgTxt("Muitos argumentos de saída."); 
+        }
     }
     
-    maxiter = (int) mxGetScalar(maxiter_IN);
-    npart = (int) mxGetScalar(npart_IN);
-    nclass = (int) mxGetScalar(nclass_IN);
-    stopmax = (int) mxGetScalar(stopmax_IN);
-    pdet = mxGetScalar(pdet_IN);
-    dexp = mxGetScalar(dexp_IN);
-    deltav = mxGetScalar(deltav_IN);
-    deltap = mxGetScalar(deltap_IN);
-    potmin = mxGetScalar(potmin_IN);
-    partpos = mxGetPr(partpos_IN);
-    partclass = mxGetPr(partclass_IN);
-    potpart = mxGetPr(potpart_IN);
-    slabel = mxGetPr(slabel_IN);
-    nsize = mxGetPr(nsize_IN);
-    distnode = mxGetPr(distnode_IN);
-    nlist = mxGetPr(nlist_IN);    
-    pot = mxGetPr(pot_IN);
-    
-    qtnode = (int) mxGetM(slabel_IN);
-    neibmax = (int) mxGetN(nlist_IN);  // quantidade máxima de vizinhos que um nó tem   
-    
-    /* Create a matrix for the return argument */ 
-    pot_OUT = pot_IN;
-        
-    strwalk20loop(maxiter,npart,nclass,stopmax,pdet,dexp,deltav,deltap,potmin,partpos,partclass,potpart,slabel,nsize,distnode,nlist,pot,qtnode,neibmax);
+    free(prob);
     
     return;
     

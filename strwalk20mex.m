@@ -1,4 +1,3 @@
-% REMOVER VARIAVEIS DE RETORNO POT E DISTNODE
 % Semi-Supervised Territory Mark Walk v.20
 % Derivado de strwalk8.m (v.8k)
 % Conta distância de de nós para o nó pré-rotulado mais próximo (v.2)
@@ -13,42 +12,45 @@
 % Nós rotulados dão prioridade pra k-vizinhos mais próximos com mesmo
 % rótulo. Tabela de distância volta a ser individual. (v.20)
 % Usage: [owner, pot, distnode] = strwalk20mex(X, slabel, k, disttype, valpha, pgrd, deltav, deltap, dexp, nclass, maxiter)
-function [owner, pot, distnode] = strwalk20mex(X, slabel, k, disttype, valpha, pgrd, deltav, deltap, dexp, nclass, maxiter)
-    if (nargin < 11) || isempty(maxiter),
+function owner = strwalk20mex(X, slabel, k, disttype, valpha, pgrd, deltav, deltap, dexp, nclass, maxiter)
+    if (nargin < 11) || isempty(maxiter)
         maxiter = 500000; % número de iterações
     end
-    if (nargin < 10) || isempty(nclass),
+    if (nargin < 10) || isempty(nclass)
         nclass = max(slabel); % quantidade de classes
     end
-    if (nargin < 9) || isempty(dexp),
+    if (nargin < 9) || isempty(dexp)
         dexp = 2; % exponencial de probabilidade
     end
-    if (nargin < 8) || isempty(deltap),
+    if (nargin < 8) || isempty(deltap)
         deltap = 1.000; % controle de velocidade de aumento/decremento do potencial da partícula
     end
-    if (nargin < 7) || isempty(deltav),
+    if (nargin < 7) || isempty(deltav)
         deltav = 0.100; % controle de velocidade de aumento/decremento do potencial do vértice
     end
-    if (nargin < 6) || isempty(pgrd),
+    if (nargin < 6) || isempty(pgrd)
         pgrd = 0.500; % probabilidade de não explorar
     end
-    if (nargin < 5) || isempty(valpha),
+    if (nargin < 5) || isempty(valpha)
         valpha = 2000;
     end    
-    if (nargin < 4) || isempty(disttype),
+    if (nargin < 4) || isempty(disttype)
         disttype = 'euclidean'; % distância euclidiana não normalizada
     end    
     qtnode = size(X,1); % quantidade de nós
-    if (nargin < 3) || isempty(k),
+    if (nargin < 3) || isempty(k)
         k = round(qtnode*0.05); % quantidade de vizinhos mais próximos
     end   
+    % tratamento da entrada
+    slabel = uint16(slabel);
+    k = uint16(k);   
     % constantes
     potmax = 1.000; % potencial máximo
     potmin = 0.000; % potencial mínimo
     npart = sum(slabel~=0); % quantidade de partículas
     stopmax = round((qtnode/npart)*round(valpha*0.01)); % qtde de iterações para verificar convergência
     W = squareform(pdist(X,disttype).^2);  % gerando matriz de afinidade   
-    clear X;
+    clear X;    
     % aumentando distâncias para todos os elementos, exceto entre os
     % rotulados de mesmo rótulo
     W = W + (~((repmat(slabel,[1,size(slabel)]) == repmat(slabel,[1,size(slabel)])') & (repmat(slabel,[1,size(slabel)])~=0)))*max(max(W));
@@ -81,10 +83,10 @@ function [owner, pot, distnode] = strwalk20mex(X, slabel, k, disttype, valpha, p
     % definindo classe de cada partícula
     partclass = slabel(slabel~=0);
     % definindo nó casa da partícula
-    partnode = find(slabel);
+    partnode = uint32(find(slabel));
     % criando célula para listas de vizinhos
-    nsize = double(sum(graph));
-    nlist = zeros(qtnode,max(nsize));
+    nsize = uint16(sum(graph));
+    nlist = zeros(qtnode,max(nsize),'uint32');
     for i=1:qtnode       
         nlist(i,1:nsize(i)) = find(graph(i,:)==1);
     end
@@ -101,15 +103,15 @@ function [owner, pot, distnode] = strwalk20mex(X, slabel, k, disttype, valpha, p
         % ajustando potenciais para configuração inicial
         pot = potini;
         % definindo potencial da partícula em 1
-        potpart = repmat(potmax,npart,1);       
+        potpart = ones(potmax,npart);    
         % ajustando todas as distâncias na máxima possível
-        distnode = repmat(qtnode-1,qtnode,npart);
+        distnode = repmat(min(intmax('uint8'),uint8(qtnode-1)),qtnode,npart);        
         % ajustando para zero a distância de cada partícula para seu
         % respectivo nó casa
         distnode(sub2ind(size(distnode),partnode',1:npart)) = 0;
         % colocando cada nó em sua casa
         partpos = partnode;
-        pot = strwalk20loop(maxiter, npart, nclass, stopmax, pgrd, dexp, deltav, deltap, potmin, partpos, partclass, potpart, slabel, nsize, distnode, nlist, pot);
+        strwalk20loop(maxiter, npart, nclass, stopmax, pgrd, dexp, deltav, deltap, potmin, partpos, partclass, potpart, slabel, nsize, distnode, nlist, pot);
         potacc = potacc + pot;
     end
     [~,owner] = max(potacc,[],2);
