@@ -9,7 +9,7 @@
 % iter = número de iterações
 % alpha = no inteverlo [0 1], define quantidade relativa de informação vinda dos
 %         vizinhos e da informação inicial
-% sigma = ?
+% sigma = largura do kernel gaussiano
 function owner = zhou(X,slabel,sigma,disttype,alpha,nclass,iter)
 if (nargin < 7) || isempty(iter),
     iter = 10000; % número de iterações

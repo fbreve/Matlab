@@ -1,13 +1,14 @@
 % Método Linear Neighborhood Propagation de Fei Wang et. al.
-% Uso: owner = lnp(X,slabel,k,alpha,nclass,iter)
+% Uso: owner = lnp(X,slabel,k,disttype,alpha,nclass,iter)
 % X = vetor de atributos (linha = elementos, coluna = atributos)
 % slabel = vetor com rótulo numérico (>0) dos elementos pré-rotulados (0 para 
 %          elementos não rotulados)
+% k = número de vizinhos mais próximos na formação do grafo
+% disttype = distância utilizada
 % nclass = número de classes
 % iter = número de iterações
 % alpha = no inteverlo [0 1], define quantidade relativa de informação vinda dos
 %         vizinhos e da informação inicial
-% k = número de vizinhos mais próximos na formação do grafo
 function owner = lnp(X,slabel,k,disttype,alpha,nclass,iter)
 if (nargin < 7) || isempty(iter),
     iter = 10000; % número de iterações
@@ -50,7 +51,8 @@ parfor i=1:qtnode
 %    w = w ./ sum(w); % normalizar pesos encontrados
    % Solução por minimização
    %options = optimset('LargeScale','off','Display','off');
-   options = optimset('Algorithm','active-set','Display','off');
+   %options = optimset('Algorithm','active-set','Display','off'); % algoritmo active-set foi removido do MATLAB a partir da versão 2016.
+   options = optimset('Display','off');
    w = quadprog(G,ones(1,k),[],[],ones(1,k),1,zeros(k,1),ones(k,1),[],options);
    % fim solução
    wi = zeros(1,qtnode); 
