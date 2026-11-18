@@ -6,20 +6,20 @@ A historical copy is valuable when an old URL disappears or a newer version chan
 
 ## Historical file inventory
 
-Sizes are in decimal MB and represent **summed uncompressed Git blob sizes**, not Git repository download size; an archive and its extracted contents may both be counted.
+Sizes represent **summed uncompressed Git blob sizes** (decimal MB, or KB for the smallest folder), not Git repository download size; compressed files and their extracted copies may both be counted.
 
-| Group | Tracked files | Size | Historical description |
+| Folder or group | Files | Size | What the historical copy contains |
 | --- | ---: | ---: | --- |
-| [`UCR_TS_Archive_2015/`](UCR_TS_Archive_2015/) | 170 | 461.2 MB | UCR Time Series Classification Archive, 2015 |
-| [`uci-datasets/`](uci-datasets/) | 55 | 91.9 MB | UCI dataset copies and some local MATLAB conversions |
-| [`ssl-book/`](ssl-book/) | 33 | 54.1 MB | Semi-Supervised Learning book (2006) benchmark splits |
-| [`MSRC/`](MSRC/) | 490 | 102.1 MB | Historical segmentation images and GT, including BSDS300 |
-| [`GSC/`](GSC/) | 453 | 26.4 MB | Image, ground truth and segmentation-related historical material |
-| [`dataset-interactive-algorithms/`](dataset-interactive-algorithms/) | 151 | 0.3 MB | Andrade/Carrera interactive-segmentation evaluation material |
-| [`BCT/`](BCT/) | 143 | 1.2 MB | Brain Connectivity Toolbox dated 2017-01-15 |
-| [`SmallWorldNess/`](SmallWorldNess/) | 18 | 0.9 MB | Third-party MATLAB routines and supporting scientific material |
-| [`Multilayer Social Networks/`](Multilayer%20Social%20Networks/) | 2 | 0.0 MB | Sample multilayer social-network data |
-| Root-level scripts/data/results | 848 | 63.5 MB | Mixed experiment output, source variants and standalone data |
+| [`UCR_TS_Archive_2015/`](UCR_TS_Archive_2015/) | 170 | 461.2 MB | **85 train/test pairs** of time-series classification datasets from the 2015 UCR collection, retained with their original local file names and splits. |
+| [`uci-datasets/`](uci-datasets/) | 55 | 91.9 MB | UCI-type classification benchmarks and documentation in text formats, plus MATLAB conversions; includes the KDD Cup 1999 10% sample. |
+| [`ssl-book/`](ssl-book/) | 33 | 54.1 MB | Nine sets of semi-supervised learning benchmarks, predefined label splits, a MATLAB ZIP distribution and a saved historical description page. |
+| [`MSRC/`](MSRC/) | 490 | 102.1 MB | Berkeley **BSDS300** archive/extracted images and other images, segmentation ground-truth files and compressed resources; mixed origins. |
+| [`GSC/`](GSC/) | 453 | 26.4 MB | Segmentation input images and corresponding masks/annotation images; individual files need separate source attribution. |
+| [`dataset-interactive-algorithms/`](dataset-interactive-algorithms/) | 151 | 0.3 MB | Ground-truth and scribble-mask sets for the **50-image interactive segmentation** evaluation described by Andrade and Carrera. |
+| [`BCT/`](BCT/) | 143 | 1.2 MB | **Brain Connectivity Toolbox**, January 2017 snapshot: graph measures, MATLAB demos and small example network matrices. |
+| [`SmallWorldNess/`](SmallWorldNess/) | 18 | 0.9 MB | Small-worldness analysis scripts, sample network, code license and two research-paper PDFs. |
+| [`Multilayer Social Networks/`](Multilayer%20Social%20Networks/) | 2 | 16.3 KB | Florentine and monastery multilayer social networks in `.mpx` format. |
+| Root-level scripts/data/results | 848 | 63.5 MB | Many successive MATLAB/C/MEX implementations, experiment drivers, logs, saved matrices and machine-specific configuration. |
 
 **Total:** 2,363 tracked files; 801.7 MB uncompressed.
 
@@ -27,15 +27,15 @@ Sizes are in decimal MB and represent **summed uncompressed Git blob sizes**, no
 
 | Folder | Source / related context | What is known locally | Redistribution / license status |
 | --- | --- | --- | --- |
-| `UCR_TS_Archive_2015/` | [UCR historical archive](https://www.cs.ucr.edu/~eamonn/time_series_data/) | 85 TRAIN/TEST pairs; the precise 2015 version matters for old comparisons | **No verified blanket license covering all contributed datasets** |
-| `uci-datasets/` | [UCI Machine Learning Repository](https://archive.ics.uci.edu/) | Individual datasets and formats differ; this directory is not one single dataset | **Current UCI records often specify CC BY 4.0, but verify each historical dataset and its specific conditions** |
-| `ssl-book/` | [Book publisher](https://mitpress.mit.edu/9780262033589/semi-supervised-learning/); [benchmark background](https://pypi.org/project/sslbookdata/) | Nine benchmark sets and saved splitting information, ZIP and historical HTML page | **Original bundle redistribution terms not established** |
-| `MSRC/` | [Berkeley Segmentation Dataset and Benchmark](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/) | Contains Berkeley BSDS300 image archive plus other images and annotation files; sources must be distinguished | **Different image collections may have different rights; no blanket redistribution claim** |
-| `GSC/` | [Oxford interactive-segmentation reference](https://www.robots.ox.ac.uk/~vgg/data/iseg/) | Related research context only; does not establish exact provenance of each local file | **Origin and redistribution conditions require file-level review** |
-| `dataset-interactive-algorithms/` | [Bundled README](dataset-interactive-algorithms/README.md); [author page](https://ferandrade.com/blog/interactive-segmentation-dataset/) | The bundled README describes 50 images, ground truth and two sets of scribbles; cites GrabCut and Geodesic Star Convexity | **Public academic availability does not itself guarantee unrestricted reuse of images/annotations** |
-| `BCT/` | [Historical releases](https://sites.google.com/site/bctnet/latest-releases); [NITRC](https://www.nitrc.org/projects/bct) | MATLAB toolbox with examples and data files, not simply a dataset | **Refer to exact historical code/data license notices, not a later mirror's license** |
-| `SmallWorldNess/` | [Bundled README](SmallWorldNess/README.md) | Contains scripts, sample data, LICENSE.txt and two research-paper PDFs | **Rights for included paper PDFs may differ from license for code** |
-| `Multilayer Social Networks/` | [Local sample files](Multilayer%20Social%20Networks/) | Florentine and monastery .mpx files; origin not independently established | **License and transformation history not documented** |
+| `UCR_TS_Archive_2015/` | [UCR historical archive](https://www.cs.ucr.edu/~eamonn/time_series_data/) | The committed **2015 train/test pairs** provide a fixed input set for comparing historical time-series classification experiments. | **Dataset-specific rights need verification; no archive-wide redistribution permission is asserted.** |
+| `uci-datasets/` | [UCI Machine Learning Repository](https://archive.ics.uci.edu/) | Data files, original-style documentation and local MATLAB conversions; the bundle spans **multiple independent datasets**. | **Check each dataset's current and historical terms; do not assume one license covers all files or conversions.** |
+| `ssl-book/` | [Book publisher](https://mitpress.mit.edu/9780262033589/semi-supervised-learning/); [benchmark background](https://pypi.org/project/sslbookdata/) | Data and **predefined labeled/unlabeled splits** from the nine-set book benchmark, along with a saved source description. | **Original dataset-bundle redistribution terms have not been established.** |
+| `MSRC/` | [Berkeley Segmentation Dataset and Benchmark](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/) | **BSDS300 images and archive**, plus other image and ground-truth material stored together for segmentation research. | **Images, annotations and archives may have different terms; folder name alone does not establish origin or rights.** |
+| `GSC/` | [Oxford interactive-segmentation reference](https://www.robots.ox.ac.uk/~vgg/data/iseg/) | Input images and segmentation masks are preserved, but a **one-to-one source mapping has not been reconstructed**. | **Oxford is related context, not verified source for every local file; check per-image rights.** |
+| `dataset-interactive-algorithms/` | [Bundled README](dataset-interactive-algorithms/README.md); [author page](https://ferandrade.com/blog/interactive-segmentation-dataset/) | The **50-image evaluation** provides ground truth and two scribble sets representing different annotation effort, as documented by Andrade/Carrera. | **Original source image and scribble permissions need confirmation; academic availability is not a blanket grant.** |
+| `BCT/` | [Historical releases](https://sites.google.com/site/bctnet/latest-releases); [NITRC](https://www.nitrc.org/projects/bct) | The January 2017 **MATLAB graph-analysis toolbox** includes algorithms, demonstrations and example connectivity matrices. | **Review the relevant historical software notices and separate conditions for sample data.** |
+| `SmallWorldNess/` | [Bundled README](SmallWorldNess/README.md) | MATLAB routines for **computing and statistically assessing small-worldness**, together with one sample network and two source papers. | **The bundled code LICENSE.txt does not automatically authorize redistribution of the scholarly PDFs.** |
+| `Multilayer Social Networks/` | [Local sample files](Multilayer%20Social%20Networks/) | Two network examples in **multilayer .mpx format** (Florentine and monastery data). | **Original source, transformations and redistribution terms remain undocumented.** |
 
 ### Notes for scientific reuse
 
